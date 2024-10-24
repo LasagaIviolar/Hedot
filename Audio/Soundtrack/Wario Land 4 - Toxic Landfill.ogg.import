@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dhra6kty2g4la"
+path="res://.godot/imported/Wario Land 4 - Toxic Landfill.ogg-ed8c4bd62258b60e939c5a248a01fafc.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Soundtrack/Wario Land 4 - Toxic Landfill.ogg"
+dest_files=["res://.godot/imported/Wario Land 4 - Toxic Landfill.ogg-ed8c4bd62258b60e939c5a248a01fafc.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
