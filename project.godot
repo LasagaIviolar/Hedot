@@ -112,6 +112,7 @@ Exit={
 
 2d_physics/layer_1="Enemies"
 2d_physics/layer_2="Walls, floor and ceiling"
+2d_physics/layer_3="Just Floor lmao"
 
 [physics]
 

@@ -14,11 +14,13 @@ func state_entered() -> void:
 	if parent.is_flying():
 		parent.velocity = Vector2()
 	
-	parent.animation_player.play("RESET")
-	await get_tree().process_frame
-	if parent.animation_player.has_animation("Hurt"):
-		parent.animation_player.play("Hurt")
+	move_state = parent.state.states_list[parent.move_state]
 	
+	if parent.animation_player.has_animation("Hurt"):
+		parent.animation_player.play("RESET")
+		await get_tree().process_frame
+		parent.animation_player.play("Hurt")
+		
 	# -1 if facing right and 1 if facing left
 	parent.velocity.x = -parent.direction * parent.move_speed
 	parent.get_sfx("Hurt").play()

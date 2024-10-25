@@ -2,6 +2,7 @@ extends State
 
 const MothraParticle := preload("res://Objects/Characters/MothraParticle.tscn")
 const GodzillaHeatBeam := preload("res://Objects/Characters/GodzillaHeatBeam.tscn")
+const HedorahSludge := preload("res://Objects/Characters/HedorahSludge.tscn")
 
 var move_state: Node
 var current_attack: PlayerCharacter.Attack
@@ -136,7 +137,77 @@ func use(type: PlayerCharacter.Attack) -> void:
 				if not is_still_attacking(): return
 				
 			parent.state.current = parent.move_state
+		
+		PlayerCharacter.Attack.HEDORAH_PUNCH:
+			variation = not variation
+			parent.animation_player.play("Punch1" if variation else "Punch2")
+			parent.get_sfx("HedorahPunch").play()
+			
+			attack_component.set_collision(Vector2(45, 27), Vector2(30 * parent.direction, -1))
+			
+			attack_component.start_attack(2)
+			await parent.animation_player.animation_finished
+			attack_component.stop_attack()
+			
+			parent.state.current = parent.move_state
 				
+		PlayerCharacter.Attack.SLUDGE:
+			# Calculate the amount of power this attack should use
+			var power := mini(parent.power.value, 2 * 8)
+			
+			# Calculate the number of wing particles that should be created
+			var times := int(power / 2.6)
+			
+			# Not enough power for this attack
+			if times == 0:
+				parent.state.current = parent.move_state
+				return
+				
+			parent.power.use(power)
+			
+			for i in times:
+				var particle := HedorahSludge.instantiate()
+				Global.get_current_scene().add_child(particle)
+				
+				particle.setup(particle.Type.SLUDGE, parent)
+				particle.global_position = (
+				parent.global_position + Vector2(12 * parent.direction, -24)
+			)
+				
+				await get_tree().create_timer(0.15, false).timeout
+				if not is_still_attacking(): return
+				
+			parent.state.current = parent.move_state
+			
+		PlayerCharacter.Attack.SLUDGE_DOWN:
+			# Calculate the amount of power this attack should use
+			var power := mini(parent.power.value, 2 * 8)
+			
+			# Calculate the number of wing particles that should be created
+			var times := int(power / 2.6)
+			
+			# Not enough power for this attack
+			if times == 0:
+				parent.state.current = parent.move_state
+				return
+				
+			parent.power.use(power)
+			
+			for i in times:
+				var particle := HedorahSludge.instantiate()
+				Global.get_current_scene().add_child(particle)
+				
+				particle.setup(particle.Type.SLUDGE_DOWN, parent)
+				particle.global_position = (
+				parent.global_position + Vector2(12 * parent.direction, -24)
+			)
+				
+				await get_tree().create_timer(0.15, false).timeout
+				if not is_still_attacking(): return
+				
+			parent.state.current = parent.move_state
+			
+			
 func create_heat_beam() -> void:
 	const HEAT_BEAM_COUNT := 12
 	var heat_beams: Array[AnimatedSprite2D] = []
@@ -179,4 +250,7 @@ func _on_animation_finished(anim_name: String) -> void:
 				parent.animation_player.play("Crouch")
 			else:
 				parent.animation_player.play("RESET")
+			parent.state.current = PlayerCharacter.State.WALK
+		"Punch":
+			parent.animation_player.play("RESET")
 			parent.state.current = PlayerCharacter.State.WALK

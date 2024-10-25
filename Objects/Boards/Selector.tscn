@@ -3,9 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://wmgv6kcqcri0" path="res://Sprites/BoardSprites.png" id="1_hejr5"]
 [ext_resource type="Script" path="res://Scripts/Objects/Boards/Selector.gd" id="2_4q06p"]
 
-
 [node name="Selector" type="Sprite2D"]
 texture = ExtResource("1_hejr5")
 hframes = 3
-vframes = 3
+vframes = 4
 script = ExtResource("2_4q06p")

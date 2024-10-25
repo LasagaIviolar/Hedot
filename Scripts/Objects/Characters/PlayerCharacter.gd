@@ -6,6 +6,7 @@ extends CharacterBody2D
 enum Type {
 	GODZILLA,
 	MOTHRA,
+	HEDORAH,
 }
 
 # States in "States" node of the player should be
@@ -31,16 +32,26 @@ enum Attack {
 	# Mothra attacks
 	EYE_BEAM,
 	WING_ATTACK,
+	
+	# Hedorah attacks
+	HEDORAH_PUNCH,
+	SLUDGE,
+	SLUDGE_DOWN,
+	LASERBEAM,
+	BLOB_BOMB,
+	LASERBEAM_FLY,
 }
 
 const CHARACTER_NAMES: Array[String] = [
 	"Godzilla",
 	"Mothra",
+	"Hedorah",
 ]
 
 const BaseBarCount: Array[int] = [
 	6, # Godzilla
 	8, # Mothra
+	8, # Hedorah
 ]
 
 @export var character := PlayerCharacter.Type.GODZILLA
@@ -72,7 +83,7 @@ var xp := 0
 var save_position: Array[Vector2]
 
 var body: AnimatedSprite2D
-var skin: PlayerSkin
+var skin: Node2D
 var animation_player: AnimationPlayer
 
 signal intro_ended
@@ -136,12 +147,26 @@ func _ready() -> void:
 			
 			if is_player and enable_intro:
 				position.x = -37
+		
+		PlayerCharacter.Type.HEDORAH:
+			change_skin(load("res://Objects/Characters/Hedorah.tscn").instantiate())
+			set_collision(Vector2(25, 72), Vector2(0, 0))
 			
+			get_sfx("Roar").stream = load("res://Audio/SFX/HedorahRoar.wav")
+			move_state = State.WALK
+			
+						
+			# We set the character-specific position so when the character
+			# walks in a sudden walking animation frame change won't happen
+			# (walk_frame is set to 0 when the player gets control)
+			if is_player and enable_intro:
+				position.x = -35
 	# Setup for all characters
 	direction = direction
 	body = $Skin/Body
 	animation_player = $Skin/AnimationPlayer
 	move_child(collision, -1)
+
 	
 	if is_flying():
 		animation_player.play("Idle")
