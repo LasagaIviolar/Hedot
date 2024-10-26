@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://blo8x6bqjbe1w"]
+[gd_scene load_steps=9 format=4 uid="uid://blo8x6bqjbe1w"]
 
 [ext_resource type="PackedScene" uid="uid://d2do8ilhab482" path="res://Scenes/Boards/BaseBoard.tscn" id="1_swyd4"]
 [ext_resource type="AudioStream" uid="uid://ij42lx3rq1l1" path="res://Audio/Soundtrack/Earth.ogg" id="2_qcs5w"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://slv0bn0tcyna" path="res://Scenes/Boards/Jupiter.tscn" id="3_npn5c"]
 [ext_resource type="PackedScene" uid="uid://bdbahbhfgy3yt" path="res://Scenes/Levels/TransitionLevel.tscn" id="5_vaw1m"]
 [ext_resource type="PackedScene" uid="uid://cavxehselt3he" path="res://Objects/Boards/Piece.tscn" id="6_vncvx"]
+[ext_resource type="PackedScene" uid="uid://cqrpbxce3xquu" path="res://Objects/Characters/Mothra.tscn" id="7_lfyha"]
 [ext_resource type="PackedScene" uid="uid://df3jptqtpl75u" path="res://Scenes/Bosses/Mothra.tscn" id="7_ng0gx"]
 
 [node name="Board" instance=ExtResource("1_swyd4")]
@@ -18,11 +19,20 @@ levels = Array[PackedScene]([ExtResource("2_sgm5j"), ExtResource("2_sgm5j"), Ext
 [node name="Board Icons" parent="Board" index="1"]
 tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAAAAAEAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAACAAMAAQABAAAAAAABAAMAAQAAAAAAAAAAAAIAAQAAAAAAAAACAAQAAQABAAAAAAABAAQAAQAAAAAAAAAFAAEAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAADAAUAAQABAAAAAAADAAQAAQABAAAAAAAEAAMAAQAAAAAAAAAEAAQAAQAAAAAAAAAFAAQAAQACAAAAAAAGAAMAAQACAAAAAAAGAAIAAQAAAAAAAAAFAAIAAQAAAAAAAAAFAAMAAQAAAAAAAAAGAAQAAQACAAAAAAAFAAUAAQACAAAAAAA=")
 
-[node name="Godzilla" parent="Board/Board Icons/Board Pieces" index="0"]
+[node name="Hedorah" parent="Board/Board Icons/Board Pieces" index="0" instance=ExtResource("6_vncvx")]
+position = Vector2(48, 40)
 region_rect = Rect2(0, 144, 48, 48)
 piece_character = 2
 
-[node name="Godzilla2" parent="Board/Board Icons/Board Pieces" index="1" instance=ExtResource("6_vncvx")]
+[node name="Hedorah2" parent="Board/Board Icons/Board Pieces" index="1" instance=ExtResource("6_vncvx")]
+position = Vector2(176, 40)
+scale = Vector2(-1, 1)
+region_rect = Rect2(0, 96, 48, 48)
+piece_character = 1
+piece_type = 1
+boss_scene = ExtResource("7_lfyha")
+
+[node name="Godzilla2" parent="Board/Board Icons/Board Pieces" index="3" instance=ExtResource("6_vncvx")]
 position = Vector2(208, 152)
 scale = Vector2(-1, 1)
 region_rect = Rect2(0, 96, 48, 48)
@@ -30,12 +40,12 @@ piece_character = 1
 piece_type = 1
 boss_scene = ExtResource("7_ng0gx")
 
-[node name="Mothra" parent="Board/Board Icons/Board Pieces" index="2" instance=ExtResource("6_vncvx")]
+[node name="Mothra" parent="Board/Board Icons/Board Pieces" index="4" instance=ExtResource("6_vncvx")]
 position = Vector2(16, 56)
 region_rect = Rect2(0, 96, 48, 48)
 piece_character = 1
 
-[node name="Mothra2" parent="Board/Board Icons/Board Pieces" index="3" instance=ExtResource("6_vncvx")]
+[node name="Mothra2" parent="Board/Board Icons/Board Pieces" index="5" instance=ExtResource("6_vncvx")]
 position = Vector2(112, 104)
 scale = Vector2(-1, 1)
 region_rect = Rect2(0, 96, 48, 48)
