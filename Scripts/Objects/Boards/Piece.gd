@@ -5,11 +5,13 @@ extends Sprite2D
 const PIECE_STEPS := [
 	2, # Godzilla
 	4, # Mothra
+	2, # Hedorah
 ]
 const FRAME_COUNT := 3  # White piece and 2 colored walking sprites
 const FRAME_SPEED := [
 	0.13, # Godzilla
 	0.2, # Mothra
+	0.13, # Hedorah
 ]
 
 @export var piece_character := PlayerCharacter.Type.GODZILLA:

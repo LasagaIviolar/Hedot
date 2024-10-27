@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bdedrxocj46sr"]
+[gd_scene load_steps=22 format=3 uid="uid://bdedrxocj46sr"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/PlayerCharacter.gd" id="1_c8c0q"]
 [ext_resource type="PackedScene" uid="uid://camascwoory5h" path="res://Objects/HealthComponent.tscn" id="3_bws3y"]
@@ -11,8 +11,12 @@
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/Attack.gd" id="5_gtijs"]
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/Hurt.gd" id="5_t6xgh"]
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/Dead.gd" id="6_b6u5i"]
+[ext_resource type="AudioStream" uid="uid://c4ljcr4s0y8uy" path="res://Audio/SFX/HedorahPunch.wav" id="9_r6npi"]
+[ext_resource type="AudioStream" uid="uid://d3ld8q0jgdrnq" path="res://Audio/SFX/Hedorah_Morph.wav" id="10_fdpfb"]
+[ext_resource type="AudioStream" uid="uid://bgh7sdqgg4m17" path="res://Audio/SFX/Hedorah_Morph_Out.wav" id="11_ktp4m"]
 [ext_resource type="AudioStream" uid="uid://deo2ts4xdwwce" path="res://Audio/SFX/CharPunch.wav" id="11_npbvd"]
 [ext_resource type="AudioStream" uid="uid://bnpu85disxvis" path="res://Audio/SFX/GodzillaHeatBeam.wav" id="11_y38wb"]
+[ext_resource type="AudioStream" uid="uid://dt4r581d6diwt" path="res://Audio/SFX/Hedorah_Sludge_Hit.wav" id="12_lp7sv"]
 [ext_resource type="AudioStream" uid="uid://dcy2jbwfd2no" path="res://Audio/SFX/CharHurt.wav" id="12_re2uk"]
 [ext_resource type="AudioStream" uid="uid://clfqyu3fby0tv" path="res://Audio/SFX/LevelUp.wav" id="13_l1dc3"]
 
@@ -76,6 +80,22 @@ script = ExtResource("5_gtijs")
 [node name="SFX" type="Node" parent="."]
 
 [node name="Step" type="AudioStreamPlayer" parent="SFX"]
+bus = &"SFX"
+
+[node name="HedorahPunch" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("9_r6npi")
+bus = &"SFX"
+
+[node name="HedorahMorph" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("10_fdpfb")
+bus = &"SFX"
+
+[node name="HedorahMorphOut" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("11_ktp4m")
+bus = &"SFX"
+
+[node name="HedorahSludgeHit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("12_lp7sv")
 bus = &"SFX"
 
 [node name="Roar" type="AudioStreamPlayer" parent="SFX"]

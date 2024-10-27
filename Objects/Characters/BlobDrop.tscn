@@ -1,0 +1,318 @@
+[gd_scene load_steps=30 format=3 uid="uid://c0g5y8l754hpf"]
+
+[ext_resource type="Texture2D" uid="uid://cg604c4ajqp2a" path="res://Sprites/Characters/Hedorah/spHedorah_Blob_Ground_Fade_strip4.png" id="2_w2x83"]
+[ext_resource type="Texture2D" uid="uid://dp8blmmabvmcp" path="res://Sprites/Characters/Hedorah/spHedorah_Blob_strip4.png" id="3_owml8"]
+[ext_resource type="Texture2D" uid="uid://ypeynr23ffb3" path="res://Sprites/Characters/Hedorah/spHedorah_Blob_Ground_strip4.png" id="4_rah6d"]
+[ext_resource type="Texture2D" uid="uid://bwr6qeos2epdd" path="res://Sprites/Characters/Hedorah/spHedorah_Blob_Merge_strip4.png" id="5_0oxrn"]
+[ext_resource type="Script" path="res://Objects/Characters/blob_drop.gd" id="5_03s7u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xh3ku"]
+atlas = ExtResource("2_w2x83")
+region = Rect2(0, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ma1a"]
+atlas = ExtResource("2_w2x83")
+region = Rect2(15, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7xxq"]
+atlas = ExtResource("2_w2x83")
+region = Rect2(30, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtqo8"]
+atlas = ExtResource("2_w2x83")
+region = Rect2(45, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1lsm"]
+atlas = ExtResource("3_owml8")
+region = Rect2(0, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aj66m"]
+atlas = ExtResource("3_owml8")
+region = Rect2(15, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkqtw"]
+atlas = ExtResource("3_owml8")
+region = Rect2(30, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hotxt"]
+atlas = ExtResource("3_owml8")
+region = Rect2(45, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ym0h"]
+atlas = ExtResource("4_rah6d")
+region = Rect2(0, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_co3sq"]
+atlas = ExtResource("4_rah6d")
+region = Rect2(15, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0xpl"]
+atlas = ExtResource("4_rah6d")
+region = Rect2(30, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72qjc"]
+atlas = ExtResource("4_rah6d")
+region = Rect2(45, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_754qv"]
+atlas = ExtResource("5_0oxrn")
+region = Rect2(0, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c38yh"]
+atlas = ExtResource("5_0oxrn")
+region = Rect2(15, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3qdf"]
+atlas = ExtResource("5_0oxrn")
+region = Rect2(30, 0, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyuyi"]
+atlas = ExtResource("5_0oxrn")
+region = Rect2(45, 0, 15, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dfex"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xh3ku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ma1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7xxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtqo8")
+}],
+"loop": true,
+"name": &"Blob_DropDEAD",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1lsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aj66m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkqtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hotxt")
+}],
+"loop": true,
+"name": &"Blob_DropFall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ym0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_co3sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0xpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72qjc")
+}],
+"loop": true,
+"name": &"Blob_DropGround",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_754qv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c38yh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3qdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyuyi")
+}],
+"loop": true,
+"name": &"Blob_DropMagnet",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_3tt20"]
+resource_name = "BlobDropDead"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Blob_DropDEAD"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_qpjpq"]
+resource_name = "BlobDropFall"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Blob_DropFall"]
+}
+
+[sub_resource type="Animation" id="Animation_4uukw"]
+resource_name = "BlobDropGround"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Blob_DropGround"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_f3f34"]
+resource_name = "BlobDropMagnet"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Blob_DropMagnet"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_o8vym"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Sludge_Boom"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4aq1u"]
+_data = {
+"BlobDropDead": SubResource("Animation_3tt20"),
+"BlobDropFall": SubResource("Animation_qpjpq"),
+"BlobDropGround": SubResource("Animation_4uukw"),
+"BlobDropMagnet": SubResource("Animation_f3f34"),
+"RESET": SubResource("Animation_o8vym")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4u32l"]
+size = Vector2(22, 14)
+
+[node name="Blob_Drop" type="AnimatedSprite2D"]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_8dfex")
+animation = &"Sludge_Boom"
+speed_scale = 1.5
+script = ExtResource("5_03s7u")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4aq1u")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_4u32l")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

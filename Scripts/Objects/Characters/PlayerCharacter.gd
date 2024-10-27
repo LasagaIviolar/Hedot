@@ -6,6 +6,7 @@ extends CharacterBody2D
 enum Type {
 	GODZILLA,
 	MOTHRA,
+	HEDORAH,
 }
 
 # States in "States" node of the player should be
@@ -31,12 +32,22 @@ enum Attack {
 	# Mothra attacks
 	EYE_BEAM,
 	WING_ATTACK,
+	
+	# Hedorah attacks
+	HEDORAH_PUNCH,
+	SLUDGE,
+	SLUDGE_DOWN,
+	LASERBEAM,
+	BLOB_BOMB,
+	LASERBEAM_FLY,
 }
 
 const SKINS: Array[String] = [
 	"res://Objects/Characters/Godzilla.tscn",
 	"res://Objects/Characters/Mothra.tscn",
+	"res://Objects/Characters/Hedorah.tscn",
 ]
+
 
 @export var character := PlayerCharacter.Type.GODZILLA
 

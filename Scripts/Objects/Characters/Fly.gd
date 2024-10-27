@@ -22,6 +22,24 @@ func _process(_delta: float) -> void:
 		
 		if player.inputs_pressed[player.Inputs.START]:
 			player.use_attack(PlayerCharacter.Attack.WING_ATTACK)
+	if parent.character == PlayerCharacter.Type.HEDORAH:
+		if parent.move_state == PlayerCharacter.State.FLY\
+		and parent.inputs_pressed[PlayerCharacter.Inputs.START]:
+			parent.animation_player.play("TransformationOut")
+			parent.animation_player.speed_scale =+ 1
+			parent.get_sfx("HedorahMorphOut").play()
+			parent.inputs[PlayerCharacter.Inputs.XINPUT] = 0
+			parent.inputs[PlayerCharacter.Inputs.YINPUT] = 0
+			parent.inputs_pressed[PlayerCharacter.Inputs.START] = false
+			parent.has_input = false
+			parent.move_speed = 1 * 60
+			await parent.animation_player.animation_finished
+			parent.has_input = true
+			
+			parent.move_state = PlayerCharacter.State.WALK
+			parent.state.current = parent.move_state
+			parent.animation_player.play("Walk") 
+			parent.skin.get_node("Body/Head").visible = true
 
 func move(delta: float) -> void:
 	var xspeed: float = player.move_speed
