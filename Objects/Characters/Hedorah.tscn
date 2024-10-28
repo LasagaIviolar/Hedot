@@ -815,6 +815,7 @@ size = Vector2(41.1875, 29.5)
 script = ExtResource("1_1is18")
 character_name = "Hedorah"
 bar_count = 8
+walk_frame_speed = 5.0
 roar_sfx = ExtResource("2_thupm")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]

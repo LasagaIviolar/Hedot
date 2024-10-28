@@ -4,11 +4,6 @@ extends PlayerSkin
 @onready var body := $Body
 @onready var head := $Body/Head
 
-func _init() -> void:
-	character_name = "Hedorah"
-	bar_count = 8
-	walk_frame_speed = 5
-
 func _process(_delta: float) -> void:
 	if body.animation == "Walk":
 		if head.animation == "Walk":
