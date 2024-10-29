@@ -5,6 +5,9 @@ extends PlayerSkin
 @onready var head := $Body/Head
 
 func _process(_delta: float) -> void:
+	if body.animation == "Idle":
+		if head.animation == "Idle":
+			head.frame = body.frame
 	if body.animation == "Walk":
 		if head.animation == "Walk":
 			head.frame = body.frame
@@ -38,12 +41,12 @@ func walk_process() -> void:
 		
 		player.move_state = PlayerCharacter.State.FLY
 		player.state.current = player.move_state
-		player.animation_player.play("Idle") 
+		player.animation_player.play("Fly") 
 
 func _on_animation_started(anim_name: StringName) -> void:
 	var collision: CollisionShape2D = $Collision
-	if anim_name == "TransformationIn" or anim_name == "Idle":
+	if anim_name == "TransformationIn" or anim_name == "Fly":
 		collision = $FlyCollision
-	if anim_name == "TransformationOut" or anim_name == "Walk":
+	if anim_name == "TransformationOut" or anim_name == "Idle":
 		collision = $Collision
 	player.set_collision(collision)

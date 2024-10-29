@@ -14,6 +14,7 @@ var jump_speed := 0.0
 func state_init() -> void:
 	if not player.is_flying():
 		walk_frames = player.body.sprite_frames.get_frame_count("Idle")
+		walk_frames = player.body.sprite_frames.get_frame_count("Walk")
 	walk_frame_speed = player.skin.walk_frame_speed
 	jump_speed = player.skin.jump_speed
 
@@ -34,6 +35,8 @@ func move(delta: float) -> void:
 			0, walk_frames)
 			
 		if player.body.animation == "Idle":
+			player.body.frame = int(walk_frame)
+		if player.body.animation == "Walk":
 			player.body.frame = int(walk_frame)
 	else:
 		player.velocity.x = 0
