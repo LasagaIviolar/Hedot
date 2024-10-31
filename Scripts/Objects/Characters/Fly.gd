@@ -38,7 +38,7 @@ func _process(_delta: float) -> void:
 			
 			parent.move_state = PlayerCharacter.State.WALK
 			parent.state.current = parent.move_state
-			parent.animation_player.play("Idle") 
+			parent.animation_player.play("Walk") 
 			parent.skin.get_node("Body/Head").visible = true
 
 func move(delta: float) -> void:

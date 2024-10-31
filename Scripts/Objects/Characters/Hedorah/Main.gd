@@ -25,7 +25,6 @@ func walk_process() -> void:
 		and player.inputs_pressed[PlayerCharacter.Inputs.START]:
 		player.animation_player.play("TransformationIn")
 		player.get_sfx("HedorahMorph").play()
-		print(1)
 		player.animation_player.speed_scale =+ 1
 		player.inputs[PlayerCharacter.Inputs.XINPUT] = 0
 		player.inputs[PlayerCharacter.Inputs.YINPUT] = 0
@@ -41,12 +40,12 @@ func walk_process() -> void:
 		
 		player.move_state = PlayerCharacter.State.FLY
 		player.state.current = player.move_state
-		player.animation_player.play("Fly") 
+		player.animation_player.play("Idle") 
 
 func _on_animation_started(anim_name: StringName) -> void:
 	var collision: CollisionShape2D = $Collision
-	if anim_name == "TransformationIn" or anim_name == "Fly":
+	if anim_name == "TransformationIn" or anim_name == "Idle":
 		collision = $FlyCollision
-	if anim_name == "TransformationOut" or anim_name == "Idle":
+	if anim_name == "TransformationOut" or anim_name == "Walk":
 		collision = $Collision
 	player.set_collision(collision)
