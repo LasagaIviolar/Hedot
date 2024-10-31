@@ -23,6 +23,15 @@ func state_entered() -> void:
 	player.velocity.x = -player.direction * player.move_speed
 	player.play_sfx("Hurt")
 	timer.start(hurt_time)
+	
+	if parent.character == PlayerCharacter.Type.HEDORAH:
+		parent.animation_player.play("Hurt") 
+		await player.animation_player.animation_finished
+		parent.state.current = parent.move_state
+		if parent.move_state == PlayerCharacter.State.FLY:
+			player.animation_player.play("Hurt")
+			await player.animation_player.animation_finished
+			player.animation_player.play("Idle")
 
 func _on_timeout() -> void:
 	# Might be called after the character died

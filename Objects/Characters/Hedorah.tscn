@@ -1,13 +1,27 @@
-[gd_scene load_steps=69 format=3 uid="uid://cm5exgl7er30h"]
+[gd_scene load_steps=75 format=3 uid="uid://cm5exgl7er30h"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/Hedorah/Main.gd" id="1_1is18"]
 [ext_resource type="Texture2D" uid="uid://d3n3ivp2ku80j" path="res://Sprites/Characters/Hedorah/idle.png" id="1_j2px2"]
 [ext_resource type="AudioStream" uid="uid://defs8qh6qe4x8" path="res://Audio/SFX/HedorahRoar.wav" id="2_thupm"]
+[ext_resource type="Shader" path="res://Shaders/PaletteSwapOffset.gdshader" id="3_7a0b2"]
 [ext_resource type="Texture2D" uid="uid://bj3sg068hbbie" path="res://Sprites/Characters/Hedorah/transform.png" id="3_coc5m"]
+[ext_resource type="Texture2D" uid="uid://dbrnfql3rwuu1" path="res://Sprites/Characters/Hedorah/pallete.png" id="4_2c6vj"]
 [ext_resource type="Texture2D" uid="uid://b0p71csojifhc" path="res://Sprites/Characters/Hedorah/walk_body.png" id="4_irfti"]
 [ext_resource type="Texture2D" uid="uid://b6qnyu2ymhuq7" path="res://Sprites/Characters/Hedorah/walk_head.png" id="5_rvypv"]
 [ext_resource type="Texture2D" uid="uid://b4p0ijaboft0x" path="res://Sprites/Characters/Hedorah/punch1.png" id="5_ymfhj"]
 [ext_resource type="Texture2D" uid="uid://bwnbof3gph6w8" path="res://Sprites/Characters/Hedorah/punch2.png" id="6_ovd55"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0j4um"]
+shader = ExtResource("3_7a0b2")
+shader_parameter/use_palette_alpha = true
+shader_parameter/offset = 0.0
+shader_parameter/palette = ExtResource("4_2c6vj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sat3l"]
+shader = ExtResource("3_7a0b2")
+shader_parameter/use_palette_alpha = false
+shader_parameter/offset = 0.0
+shader_parameter/palette = ExtResource("4_2c6vj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fbjil"]
 atlas = ExtResource("1_j2px2")
@@ -181,6 +195,12 @@ animations = [{
 "name": &"Walk",
 "speed": 5.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8j5nq"]
+shader = ExtResource("3_7a0b2")
+shader_parameter/use_palette_alpha = false
+shader_parameter/offset = 0.0
+shader_parameter/palette = ExtResource("4_2c6vj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhxla"]
 atlas = ExtResource("5_rvypv")
@@ -605,6 +625,30 @@ tracks/9/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Body:material:shader_parameter/offset")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Body/Head:material:shader_parameter/offset")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_wn22h"]
 resource_name = "Transformation"
@@ -850,8 +894,37 @@ tracks/5/keys = {
 "values": [Vector2(0, -9)]
 }
 
+[sub_resource type="Animation" id="Animation_kxmyo"]
+resource_name = "Hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/Head:material:shader_parameter/offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_odlmm"]
 _data = {
+"Hurt": SubResource("Animation_kxmyo"),
 "Idle": SubResource("Animation_txv8h"),
 "Punch1": SubResource("Animation_ihdy8"),
 "Punch2": SubResource("Animation_qb1u5"),
@@ -871,6 +944,7 @@ size = Vector2(36, 28)
 size = Vector2(41.1875, 29.5)
 
 [node name="Hedorah" type="Node2D"]
+material = SubResource("ShaderMaterial_0j4um")
 script = ExtResource("1_1is18")
 character_name = "Hedorah"
 bar_count = 8
@@ -878,6 +952,7 @@ walk_frame_speed = 5.0
 roar_sfx = ExtResource("2_thupm")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_sat3l")
 position = Vector2(-6, 4)
 sprite_frames = SubResource("SpriteFrames_lp8b5")
 animation = &"Walk"
@@ -886,6 +961,7 @@ speed_scale = 2.0
 offset = Vector2(1, -7)
 
 [node name="Head" type="AnimatedSprite2D" parent="Body"]
+material = SubResource("ShaderMaterial_8j5nq")
 sprite_frames = SubResource("SpriteFrames_k5g6q")
 animation = &"Walk"
 speed_scale = 2.0
