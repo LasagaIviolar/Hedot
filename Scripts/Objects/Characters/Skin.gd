@@ -34,3 +34,4 @@ func common_ground_attacks() -> void:
 	if player.animation_player.current_animation != "Crouch" \
 		and player.inputs_pressed[PlayerCharacter.Inputs.B]:
 			player.use_attack(PlayerCharacter.Attack.KICK)
+			

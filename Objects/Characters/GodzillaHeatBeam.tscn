@@ -187,6 +187,8 @@ animations = [{
 
 [node name="GodzillaHeatBeam" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_5qopn")
+frame = 6
+frame_progress = 0.240316
 offset = Vector2(0, 1)
 script = ExtResource("2_opyea")
 

@@ -48,7 +48,6 @@ const SKINS: Array[String] = [
 	"res://Objects/Characters/Hedorah.tscn",
 ]
 
-
 @export var character := PlayerCharacter.Type.GODZILLA
 
 @export var is_player := true
@@ -275,7 +274,7 @@ func is_hurtable() -> bool:
 
 func _on_health_damaged(_amount: float, hurt_time: float) -> void:
 	var attack_state := $StateMachine/Attack
-	if state.current == State.ATTACK and attack_state.current_attack == Attack.HEAT_BEAM:
+	if state.current == State.ATTACK and attack_state.current_attack in [Attack.HEAT_BEAM, Attack.LASERBEAM]:
 		hurt_time = 0
 		
 	if hurt_time < 0:

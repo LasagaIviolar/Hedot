@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy3d1bycqx5l"
-path="res://.godot/imported/spHedorah_Laser_Hole_strip2.png-171d00ba78fc372203c4f83f0e9b5dad.ctex"
+uid="uid://bdxxiw6dr1ay4"
+path="res://.godot/imported/eyebeam.png-7e49d2b3e02bc4bc35de8f098c87f364.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Characters/Hedorah/spHedorah_Laser_Hole_strip2.png"
-dest_files=["res://.godot/imported/spHedorah_Laser_Hole_strip2.png-171d00ba78fc372203c4f83f0e9b5dad.ctex"]
+source_file="res://Sprites/Characters/Mothra/eyebeam.png"
+dest_files=["res://.godot/imported/eyebeam.png-7e49d2b3e02bc4bc35de8f098c87f364.ctex"]
 
 [params]
 

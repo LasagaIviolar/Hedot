@@ -1,12 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://wk0ngrdkwnbv"]
+[gd_scene load_steps=17 format=3 uid="uid://wk0ngrdkwnbv"]
 
+[ext_resource type="Shader" path="res://Shaders/PaletteSwapOffset.gdshader" id="1_1t45u"]
+[ext_resource type="Texture2D" uid="uid://bdxxiw6dr1ay4" path="res://Sprites/Characters/Mothra/eyebeam.png" id="1_11dhb"]
 [ext_resource type="Texture2D" uid="uid://di5yqmheu2g18" path="res://Sprites/Characters/Mothra/particles.png" id="1_ok31u"]
+[ext_resource type="Texture2D" uid="uid://bf3s75s5heyir" path="res://Sprites/Characters/Mothra/Mothpallete.png" id="2_433uk"]
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/MothraParticle.gd" id="2_v1kq8"]
 [ext_resource type="PackedScene" uid="uid://bi7wq6b7la5ki" path="res://Objects/AttackComponent.tscn" id="3_f4212"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5tse6"]
-atlas = ExtResource("1_ok31u")
-region = Rect2(0, 12, 9, 8)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qiyjs"]
+shader = ExtResource("1_1t45u")
+shader_parameter/use_palette_alpha = false
+shader_parameter/offset = 0.0
+shader_parameter/palette = ExtResource("2_433uk")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8etuv"]
+atlas = ExtResource("1_11dhb")
+region = Rect2(0, 0, 7, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i27ki"]
+atlas = ExtResource("1_11dhb")
+region = Rect2(7, 0, 7, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwvdl"]
+atlas = ExtResource("1_11dhb")
+region = Rect2(14, 0, 7, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_akx7u"]
 atlas = ExtResource("1_ok31u")
@@ -16,7 +33,13 @@ region = Rect2(0, 24, 48, 13)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5tse6")
+"texture": SubResource("AtlasTexture_8etuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i27ki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwvdl")
 }],
 "loop": true,
 "name": &"EyeBeam",
@@ -31,9 +54,51 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_4pkhk"]
+resource_name = "EyeBeam"
+length = 0.3
+loop_mode = 1
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"EyeBeam"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
 [sub_resource type="Animation" id="Animation_yy0va"]
 resource_name = "Flash"
-length = 0.04
+length = 0.08
 loop_mode = 1
 step = 0.02
 tracks/0/type = "value"
@@ -43,10 +108,22 @@ tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.02),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [7.0, 1.0]
 }
 
 [sub_resource type="Animation" id="Animation_o8vym"]
@@ -63,16 +140,67 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"EyeBeam"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4aq1u"]
 _data = {
+"EyeBeam": SubResource("Animation_4pkhk"),
 "Flash": SubResource("Animation_yy0va"),
 "RESET": SubResource("Animation_o8vym")
 }
 
 [node name="MothraParticle" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_qiyjs")
 sprite_frames = SubResource("SpriteFrames_8dfex")
-animation = &"Wing"
+animation = &"EyeBeam"
+frame = 1
 script = ExtResource("2_v1kq8")
 
 [node name="Timer" type="Timer" parent="."]

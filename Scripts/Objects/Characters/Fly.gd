@@ -3,11 +3,13 @@ extends "res://Scripts/Objects/Characters/PlayerState.gd"
 const YLIMIT = 72
 var floor_checking: Area2D
 var attack_timer := Timer.new()
+var flash_player: AnimationPlayer
 
 func state_init() -> void:
 	floor_checking = player.get_node("MothraFloorChecking")
 	attack_timer.one_shot = true
 	add_child(attack_timer)
+	flash_player = player.skin.get_node("FlashPlayer")
 
 func _physics_process(delta: float) -> void:
 	move(delta)
@@ -22,6 +24,8 @@ func _process(_delta: float) -> void:
 		
 		if player.inputs_pressed[player.Inputs.START]:
 			player.use_attack(PlayerCharacter.Attack.WING_ATTACK)
+
+			
 	if parent.character == PlayerCharacter.Type.HEDORAH:
 		if parent.move_state == PlayerCharacter.State.FLY\
 		and parent.inputs_pressed[PlayerCharacter.Inputs.START]:

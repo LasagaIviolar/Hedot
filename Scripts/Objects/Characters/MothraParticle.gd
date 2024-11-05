@@ -33,11 +33,6 @@ func setup(init_type: Type, player: PlayerCharacter) -> void:
 		Type.WING:
 			animation = "Wing"
 			animation_player.play("Flash")
-			timer.start(0.4)
-			timer.timeout.connect(func() -> void:
-				animation_player.stop()
-				visible = true # Just in case
-				)
 			velocity = Vector2(randi_range(2, 10) * 0.1 * 60 * player.direction,
 							randi_range(6, 9) * 0.1 * 60)
 							

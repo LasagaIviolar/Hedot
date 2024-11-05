@@ -1,10 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://cqrpbxce3xquu"]
+[gd_scene load_steps=27 format=3 uid="uid://cqrpbxce3xquu"]
 
 [ext_resource type="Texture2D" uid="uid://nhpib3frkqrg" path="res://Sprites/Characters/Mothra/hurt.png" id="1_64xd3"]
 [ext_resource type="Texture2D" uid="uid://dh0gtj20jut25" path="res://Sprites/Characters/Mothra/idle.png" id="1_f6h4m"]
+[ext_resource type="Material" uid="uid://bskgj6qobt8hw" path="res://Objects/Characters/MothraParticle.tres" id="1_ol2jo"]
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/Mothra/Main.gd" id="1_p8tms"]
 [ext_resource type="AudioStream" uid="uid://d3q5gj1fhphte" path="res://Audio/SFX/MothraStep.wav" id="2_p6fl7"]
 [ext_resource type="AudioStream" uid="uid://ccjlv2riqxvf3" path="res://Audio/SFX/MothraRoar.wav" id="3_kfkrj"]
+[ext_resource type="Material" uid="uid://wx3q8iungsvn" path="res://Objects/Characters/Mothra.tres" id="5_mf6jf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w0xxw"]
 atlas = ExtResource("1_64xd3")
@@ -110,6 +112,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 1]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:material:shader_parameter/offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_bsg1t"]
 resource_name = "Idle"
@@ -139,6 +153,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:material:shader_parameter/offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_5r2jb"]
 length = 0.001
@@ -166,18 +192,122 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:material:shader_parameter/offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body:sprite_frames")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("SpriteFrames_ihex8")]
+}
+
+[sub_resource type="Animation" id="Animation_kltv5"]
+resource_name = "Wing"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:material:shader_parameter/offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56, 0.64),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7.0, 1.0, 7.0, 1.0, 7.0, 1.0, 7.0, 1.0, 7.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n42rb"]
 _data = {
 "Hurt": SubResource("Animation_6mr3k"),
 "Idle": SubResource("Animation_bsg1t"),
-"RESET": SubResource("Animation_5r2jb")
+"RESET": SubResource("Animation_5r2jb"),
+"Wing": SubResource("Animation_kltv5")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ta221"]
 size = Vector2(36, 14)
 
+[sub_resource type="Animation" id="Animation_p3e6i"]
+resource_name = "EyeBeam"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [3.0, 2.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_uljk4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_swo15"]
+_data = {
+"EyeBeam": SubResource("Animation_p3e6i"),
+"RESET": SubResource("Animation_uljk4")
+}
+
 [node name="Mothra" type="Node2D"]
+material = ExtResource("1_ol2jo")
 script = ExtResource("1_p8tms")
 character_name = "Mothra"
 bar_count = 8
@@ -190,6 +320,7 @@ step_sfx = ExtResource("2_p6fl7")
 roar_sfx = ExtResource("3_kfkrj")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+material = ExtResource("5_mf6jf")
 position = Vector2(-12, -28)
 sprite_frames = SubResource("SpriteFrames_ihex8")
 animation = &"idle"
@@ -200,7 +331,13 @@ libraries = {
 }
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-4, 1)
 shape = SubResource("RectangleShape2D_ta221")
 
 [node name="Hitboxes" type="Node" parent="."]
+
+[node name="FlashPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_swo15")
+}

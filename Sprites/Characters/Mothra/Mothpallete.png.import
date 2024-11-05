@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vx1t3e36kw5t"
-path="res://.godot/imported/walk.png-e7cbe2958d87c1dd0dad63ff910b38c8.ctex"
+uid="uid://bf3s75s5heyir"
+path="res://.godot/imported/Mothpallete.png-c165f6536ffd318922413d3f2945605c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Characters/Hedorah/walk.png"
-dest_files=["res://.godot/imported/walk.png-e7cbe2958d87c1dd0dad63ff910b38c8.ctex"]
+source_file="res://Sprites/Characters/Mothra/Mothpallete.png"
+dest_files=["res://.godot/imported/Mothpallete.png-c165f6536ffd318922413d3f2945605c.ctex"]
 
 [params]
 

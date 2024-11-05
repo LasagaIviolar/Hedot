@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tfbtth7tfn6f"
-path="res://.godot/imported/spHedorah_Laser_Hit_strip3.png-439a40dc2806370f39b51ad93523c346.ctex"
+uid="uid://cermmnlldoguk"
+path="res://.godot/imported/FloorBoss.png-c77b9e2890e3c5020e7bf6d56ac2e236.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Characters/Hedorah/spHedorah_Laser_Hit_strip3.png"
-dest_files=["res://.godot/imported/spHedorah_Laser_Hit_strip3.png-439a40dc2806370f39b51ad93523c346.ctex"]
+source_file="res://Sprites/FloorBoss.png"
+dest_files=["res://.godot/imported/FloorBoss.png-c77b9e2890e3c5020e7bf6d56ac2e236.ctex"]
 
 [params]
 

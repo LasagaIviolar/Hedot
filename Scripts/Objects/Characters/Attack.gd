@@ -10,10 +10,13 @@ var variation := 0
 
 var attack_component: AttackComponent
 
+var flash_player: AnimationPlayer
+
 func state_init() -> void:
 	attack_component = player.attack
 	move_state = player.state.states_list[player.move_state]
 	player.animation_player.animation_finished.connect(_on_animation_finished)
+	flash_player = player.skin.get_node("FlashPlayer")
 	
 var save_allow_direction_changing := false
 func state_entered() -> void:
@@ -100,6 +103,8 @@ func use(type: PlayerCharacter.Attack) -> void:
 			
 		# Mothra-specific attacks
 		PlayerCharacter.Attack.EYE_BEAM:
+			flash_player.play("EyeBeam")
+			
 			var particle := MothraParticle.instantiate()
 			Global.get_current_scene().add_child(particle)
 			
@@ -110,8 +115,14 @@ func use(type: PlayerCharacter.Attack) -> void:
 			
 			player.state.current = player.move_state
 			player.play_sfx("Step")
+			attack_component.start_attack(2)
+			await player.animation_player.animation_finished
+			attack_component.stop_attack()
 			
 		PlayerCharacter.Attack.WING_ATTACK:
+			player.animation_player.play("Wing")
+			player.animation_player.speed_scale = 2
+			
 			# Calculate the amount of power this attack should use
 			var power := mini(player.power.value, 2 * 8)
 			
@@ -137,6 +148,8 @@ func use(type: PlayerCharacter.Attack) -> void:
 				await get_tree().create_timer(0.15, false).timeout
 				if not is_still_attacking(): return
 				
+			player.animation_player.speed_scale = 1
+			player.animation_player.play("Idle")
 			player.state.current = player.move_state
 				
 		# Hedorah-specific attacks
@@ -206,8 +219,27 @@ func use(type: PlayerCharacter.Attack) -> void:
 				if not is_still_attacking(): return
 				
 			parent.state.current = parent.move_state
-				
-				
+			
+		PlayerCharacter.Attack.LASERBEAM:
+			# Calculate the amount of power this attack should use
+			var power := mini(parent.power.value, 6 * 8)
+			if power < (6):
+				parent.state.current = parent.move_state
+				return
+			
+			parent.power.use(power)
+			
+			player.animation_player.play("Hedrium_Ray")
+			player.play_sfx("HedorahPunch")
+			
+			attack_component.set_hitbox_template("Laser")
+			
+			attack_component.start_attack(2)
+			await player.animation_player.animation_finished
+			attack_component.stop_attack()
+			
+			parent.state.current = parent.move_state
+			
 func create_heat_beam() -> void:
 	const HEAT_BEAM_COUNT := 12
 	var heat_beams: Array[AnimatedSprite2D] = []
@@ -231,7 +263,7 @@ func create_heat_beam() -> void:
 		
 func wing_attack_sfx(times: int) -> void:
 	for i in times:
-		player.play_sfx("Step")
+		player.play_sfx("Wing")
 		await get_tree().create_timer(0.25, false).timeout
 
 func _on_animation_finished(anim_name: String) -> void:
@@ -251,3 +283,6 @@ func _on_animation_finished(anim_name: String) -> void:
 			else:
 				player.animation_player.play("RESET")
 			player.state.current = PlayerCharacter.State.WALK
+		"EyeBeam":
+			player.animation_player.play("RESET")
+			player.state.current = PlayerCharacter.State.FLY

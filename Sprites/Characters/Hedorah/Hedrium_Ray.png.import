@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6ufih33buw2h"
-path="res://.godot/imported/nothing.png-56be22ebde4abf80664399bae445cec9.ctex"
+uid="uid://eh37ojd488li"
+path="res://.godot/imported/Hedrium_Ray.png-26923712158ab2d3b7f11a7b7353c652.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Characters/Hedorah/nothing.png"
-dest_files=["res://.godot/imported/nothing.png-56be22ebde4abf80664399bae445cec9.ctex"]
+source_file="res://Sprites/Characters/Hedorah/Hedrium_Ray.png"
+dest_files=["res://.godot/imported/Hedrium_Ray.png-26923712158ab2d3b7f11a7b7353c652.ctex"]
 
 [params]
 
