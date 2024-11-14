@@ -3,13 +3,11 @@ extends "res://Scripts/Objects/Characters/PlayerState.gd"
 const YLIMIT = 72
 var floor_checking: Area2D
 var attack_timer := Timer.new()
-var flash_player: AnimationPlayer
 
 func state_init() -> void:
 	floor_checking = player.get_node("MothraFloorChecking")
 	attack_timer.one_shot = true
 	add_child(attack_timer)
-	flash_player = player.skin.get_node("FlashPlayer")
 
 func _physics_process(delta: float) -> void:
 	move(delta)
@@ -44,6 +42,11 @@ func _process(_delta: float) -> void:
 			parent.state.current = parent.move_state
 			parent.animation_player.play("Walk") 
 			parent.skin.get_node("Body/Head").visible = true
+		if (player.inputs_pressed[player.Inputs.A]
+			or player.inputs_pressed[player.Inputs.B]) \
+			and attack_timer.is_stopped():
+				player.use_attack(PlayerCharacter.Attack.LASERBEAM_FLY)
+				attack_timer.start(0.2)
 
 func move(delta: float) -> void:
 	var xspeed: float = player.move_speed

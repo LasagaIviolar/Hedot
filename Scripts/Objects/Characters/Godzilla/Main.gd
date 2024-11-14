@@ -13,6 +13,14 @@ func _process(_delta: float) -> void:
 		
 		if head.animation == "Idle":
 			head.frame = body.frame
+	if body.animation == "Walk":
+		if body.frame == 2 or body.frame == 6:
+			head.position.y = offset_y + 1
+		else:
+			head.position.y = offset_y
+		
+		if head.animation == "Walk":
+			head.frame = body.frame
 
 func walk_process() -> void:
 	common_ground_attacks()

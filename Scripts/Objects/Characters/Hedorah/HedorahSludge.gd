@@ -6,6 +6,7 @@ enum Type {
 	BLOB_BOMB,
 }
 
+@warning_ignore ("shadowed_variable")
 @onready var timer := $Timer
 @onready var animation_player := $AnimationPlayer
 @onready var player : Node2D = $Player
@@ -36,6 +37,7 @@ func setup(init_type: Type, player: PlayerCharacter) -> void:
 			timer.start(0.4)
 			velocity = Vector2(randi_range(6, 8) * 0.08 * 60 * player.direction,
 							randi_range(6, 9) * -0.001 * 60)
+			
 	attack_component.attacked.connect(func(_body: Node2D, _amount: float) -> void:
 		velocity = Vector2.ZERO
 		animation = "Sludge_Boom"

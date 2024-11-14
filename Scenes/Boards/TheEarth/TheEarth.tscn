@@ -97,5 +97,10 @@ position = Vector2(48, 40)
 region_rect = Rect2(0, 144, 48, 48)
 piece_character = 2
 
+[node name="Hedorah2" parent="Board/Board Icons/Board Pieces" index="4" instance=ExtResource("7_5qhq5")]
+position = Vector2(48, 75)
+region_rect = Rect2(0, 192, 48, 48)
+piece_character = 3
+
 [node name="Selector" parent="Board/Board Icons" index="1"]
 z_as_relative = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bdedrxocj46sr"]
+[gd_scene load_steps=27 format=3 uid="uid://bdedrxocj46sr"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/PlayerCharacter.gd" id="1_c8c0q"]
 [ext_resource type="PackedScene" uid="uid://camascwoory5h" path="res://Objects/HealthComponent.tscn" id="3_bws3y"]
@@ -20,6 +20,10 @@
 [ext_resource type="AudioStream" uid="uid://dcy2jbwfd2no" path="res://Audio/SFX/CharHurt.wav" id="12_re2uk"]
 [ext_resource type="AudioStream" uid="uid://clfqyu3fby0tv" path="res://Audio/SFX/LevelUp.wav" id="13_l1dc3"]
 [ext_resource type="AudioStream" uid="uid://11ec50265rqa" path="res://Audio/SFX/Wing.wav" id="17_683i4"]
+[ext_resource type="AudioStream" uid="uid://dve7loxokyigh" path="res://Audio/SFX/Hedorah_Laser.wav" id="18_11yae"]
+[ext_resource type="AudioStream" uid="uid://cj20gu86l82j" path="res://Audio/SFX/Hedorah_Laser_Fly.wav" id="19_njkjx"]
+[ext_resource type="AudioStream" uid="uid://cclkbj3uc0v6f" path="res://Audio/SFX/Hedorah_Bblob_Explode.wav" id="20_7ayjp"]
+[ext_resource type="AudioStream" uid="uid://c6x2t01wt1fg7" path="res://Audio/SFX/Hedorah_Blob_Merge.wav" id="21_yq4bv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ywk1q"]
 font_size = 8
@@ -122,6 +126,22 @@ bus = &"SFX"
 
 [node name="Wing" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("17_683i4")
+bus = &"SFX"
+
+[node name="HedorahLaser" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("18_11yae")
+bus = &"SFX"
+
+[node name="HedorahLaserFly" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("19_njkjx")
+bus = &"SFX"
+
+[node name="HedorahBlobBomb" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("20_7ayjp")
+bus = &"SFX"
+
+[node name="HedorahBlobMerge" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("21_yq4bv")
 bus = &"SFX"
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_bws3y")]

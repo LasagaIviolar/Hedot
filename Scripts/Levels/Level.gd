@@ -18,7 +18,7 @@ const GAME_OVER_SCENE := preload("res://Scenes/GameOver.tscn")
 @onready var player: PlayerCharacter = $Player
 
 class GameplayData:
-	var current_character := PlayerCharacter.Type.MOTHRA
+	var current_character := PlayerCharacter.Type.HEDORAH
 	var board_piece: BoardPiece = null
 	var boss_piece: BoardPiece = null
 

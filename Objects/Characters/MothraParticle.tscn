@@ -198,6 +198,7 @@ _data = {
 
 [node name="MothraParticle" type="AnimatedSprite2D"]
 material = SubResource("ShaderMaterial_qiyjs")
+position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8dfex")
 animation = &"EyeBeam"
 frame = 1

@@ -58,6 +58,8 @@ func _on_animation_started(anim_name: StringName) -> void:
 	var collision: CollisionShape2D = $Collision
 	if anim_name == "TransformationIn" or anim_name == "Idle":
 		collision = $FlyCollision
+	if anim_name == "HedriumRayFly":
+		collision = $FlyCollision
 	if anim_name == "TransformationOut" or anim_name == "Walk":
 		collision = $Collision
 	player.set_collision(collision)

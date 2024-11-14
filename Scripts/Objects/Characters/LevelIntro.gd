@@ -21,6 +21,12 @@ const CHARACTER_PARAMS := [
 		step_sfx_offset = 10,
 		target_x = 64,
 	},
+	{
+		step_sfx_period = 30,
+		step_sfx_start = 15,
+		step_sfx_offset = 10,
+		target_x = 64,
+	},
 ]
 
 var current_params: Dictionary

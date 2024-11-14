@@ -7,6 +7,7 @@ enum Type {
 	GODZILLA,
 	MOTHRA,
 	HEDORAH,
+	GIGAN,
 }
 
 # States in "States" node of the player should be
@@ -40,12 +41,18 @@ enum Attack {
 	LASERBEAM,
 	BLOB_BOMB,
 	LASERBEAM_FLY,
+	
+	# Gigan attacks
+	BUZZSAW,
+	LASER,
+	LASER_DOWN,
 }
 
 const SKINS: Array[String] = [
 	"res://Objects/Characters/Godzilla.tscn",
 	"res://Objects/Characters/Mothra.tscn",
 	"res://Objects/Characters/Hedorah.tscn",
+	"res://Objects/Characters/Gigan.tscn",
 ]
 
 @export var character := PlayerCharacter.Type.GODZILLA

@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bo0cbi6c5qv1x"]
+
+[ext_resource type="Shader" path="res://Shaders/PaletteSwapOffset.gdshader" id="1_26rw8"]
+[ext_resource type="Texture2D" uid="uid://ofnb3g5tqb27" path="res://Sprites/Characters/Gigan/giganpal.png" id="2_fdngi"]
+
+[resource]
+shader = ExtResource("1_26rw8")
+shader_parameter/use_palette_alpha = false
+shader_parameter/offset = 1.0
+shader_parameter/palette = ExtResource("2_fdngi")

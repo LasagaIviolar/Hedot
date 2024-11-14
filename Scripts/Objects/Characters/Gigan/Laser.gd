@@ -1,12 +1,12 @@
 extends AnimatedSprite2D
 
 enum Type {
-	BLOB_DROP,
+	LASER,
+	LASER_DOWN,
 }
-@warning_ignore("unused_parameter")
+
 @onready var timer := $Timer
 @onready var animation_player := $AnimationPlayer
-@onready var player : Node2D = $Player
 @onready var attack_component: Node2D = $AttackComponent
 
 var velocity := Vector2()
@@ -14,7 +14,6 @@ var type: Type
 
 @warning_ignore("shadowed_variable")
 func setup(init_type: Type, player: PlayerCharacter) -> void:
-	self.player = player
 	type = init_type
 	attack_component.objects_to_ignore.append(player)
 	attack_component.enemy = player.attack.enemy
@@ -22,20 +21,27 @@ func setup(init_type: Type, player: PlayerCharacter) -> void:
 	
 	scale.x = player.direction
 	match type:
-		Type.BLOB_DROP:
-			animation = "BlobDropFall"
-			animation_player.play("BlobDropFall")
+		Type.LASER:
+			animation = "LASER"
+			animation_player.play("LASER")
 			timer.start(0.4)
-			velocity = Vector2(randi_range(6, 8) * 0.085 * 60 * player.direction,
-							randi_range(6, 9) * -0.1 * 60)
+			velocity = Vector2(randi_range(3, 3) * 1 * 60 * player.direction,
+							randi_range(3, 3) * 0 * 60)
+		Type.LASER_DOWN:
+			animation = "LASER_DOWN"
+			animation_player.play("LASER_DOWN")
+			timer.start(0.4)
+			velocity = Vector2(randi_range(6, 6) * 0.3 * 60 * player.direction,
+							randi_range(6, 6) *  0.25 * 60)
+	attack_component.attacked.connect(func(_body: Node2D, _amount: float) -> void:
+		queue_free()
+		)
 	attack_component.set_collision(
 		sprite_frames.get_frame_texture(animation, 0).get_size(),
 		Vector2.ZERO
 		)
-		
+
 func _physics_process(delta: float) -> void:
-	if type == Type.BLOB_DROP:
-		velocity.y += 1 * 60 * delta
 	position += velocity * delta
 	var camera := get_viewport().get_camera_2d()
 	var limit: float = Global.get_content_size().y + 20.0
@@ -43,22 +49,3 @@ func _physics_process(delta: float) -> void:
 		limit += camera.get_screen_center_position().y
 	if position.y > limit:
 		queue_free()
-@warning_ignore("unused_parameter")
-func _on_area_2d_body_entered(body: Node2D) -> void:
-		if body != player:
-			velocity = Vector2.ZERO
-			animation = "BlobDropDead"
-			animation_player.play("BlobDropDead")
-			await animation_player.animation_finished
-			queue_free()
-			
-func createone (root):
-	
-	var parent = CharacterBody2D.new()
-	var circle = CircleShape2D.new()
-	circle.radius = 10.0 # probably your own variable here
-		
-	var BLOB_DROP = CollisionShape2D.new()
-	
-	parent.add_child(BLOB_DROP)	
-	root.add_child(parent,7)

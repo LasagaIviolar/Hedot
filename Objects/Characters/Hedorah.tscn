@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://cm5exgl7er30h"]
+[gd_scene load_steps=165 format=3 uid="uid://cm5exgl7er30h"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/Hedorah/Main.gd" id="1_1is18"]
 [ext_resource type="Texture2D" uid="uid://d3n3ivp2ku80j" path="res://Sprites/Characters/Hedorah/idle.png" id="1_j2px2"]
@@ -14,14 +14,14 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0j4um"]
 shader = ExtResource("3_7a0b2")
-shader_parameter/use_palette_alpha = true
-shader_parameter/offset = 0.0
+shader_parameter/use_palette_alpha = false
+shader_parameter/offset = 2.0
 shader_parameter/palette = ExtResource("4_2c6vj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sat3l"]
 shader = ExtResource("3_7a0b2")
 shader_parameter/use_palette_alpha = false
-shader_parameter/offset = 0.0
+shader_parameter/offset = 2.0
 shader_parameter/palette = ExtResource("4_2c6vj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fbjil"]
@@ -758,7 +758,7 @@ animations = [{
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8j5nq"]
 shader = ExtResource("3_7a0b2")
 shader_parameter/use_palette_alpha = false
-shader_parameter/offset = 0.0
+shader_parameter/offset = 2.0
 shader_parameter/palette = ExtResource("4_2c6vj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhxla"]
@@ -1045,7 +1045,7 @@ tracks/2/path = NodePath("Body:offset")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.0333333),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(39, -27)]
@@ -1063,7 +1063,7 @@ tracks/3/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_kxmyo"]
+[sub_resource type="Animation" id="Animation_voa4o"]
 resource_name = "Hurt"
 length = 0.2
 tracks/0/type = "value"
@@ -1076,7 +1076,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [5.0, 2.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1088,7 +1088,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [5.0, 2.0]
 }
 
 [sub_resource type="Animation" id="Animation_txv8h"]
@@ -1241,79 +1241,79 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body:frame")
+tracks/1/path = NodePath("Body/Head:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [3]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body:sprite_frames")
+tracks/2/path = NodePath("Body/Head:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [SubResource("SpriteFrames_lp8b5")]
+"values": [&"Walk"]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AnimationPlayer:speed_scale")
+tracks/3/path = NodePath("Body/Head:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.96]
+"update": 1,
+"values": [0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Body/Head:visible")
+tracks/4/path = NodePath("Body:offset")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(1, -7)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Body/Head:animation")
+tracks/5/path = NodePath("Body:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"Walk"]
+"values": [true]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Body/Head:frame")
+tracks/6/path = NodePath("Body/Head:material:shader_parameter/offset")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [2.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Body:offset")
+tracks/7/path = NodePath("Body/Head:offset")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1325,7 +1325,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Body:speed_scale")
+tracks/8/path = NodePath("Body:material:shader_parameter/offset")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1333,54 +1333,6 @@ tracks/8/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [2.0]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Body:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Body:material:shader_parameter/offset")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Body/Head:material:shader_parameter/offset")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Body:centered")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_wn22h"]
@@ -1444,7 +1396,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2, 4)]
+"values": [Vector2(1, 4)]
 }
 
 [sub_resource type="Animation" id="Animation_nv1au"]
@@ -1569,7 +1521,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1.07177),
 "update": 1,
 "values": [true]
 }
@@ -1577,7 +1529,7 @@ tracks/4/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_odlmm"]
 _data = {
 "Hedrium_Ray": SubResource("Animation_gwilg"),
-"Hurt": SubResource("Animation_kxmyo"),
+"Hurt": SubResource("Animation_voa4o"),
 "Idle": SubResource("Animation_txv8h"),
 "Punch1": SubResource("Animation_ihdy8"),
 "Punch2": SubResource("Animation_qb1u5"),
@@ -1593,11 +1545,115 @@ size = Vector2(25, 73)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gkboe"]
 size = Vector2(36, 28)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_the1c"]
-size = Vector2(41.1875, 29.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t6uvd"]
+size = Vector2(72, 34.2166)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2vix"]
-size = Vector2(93, 99)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8hw2"]
+size = Vector2(93.1661, 34.4807)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6e3n"]
+size = Vector2(93.1661, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_413um"]
+size = Vector2(93.1661, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_the1c"]
+size = Vector2(72.5938, 29.5)
+
+[sub_resource type="Animation" id="Animation_um3r0"]
+resource_name = "Eye_Light"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [4.0, 3.0, 2.0]
+}
+
+[sub_resource type="Animation" id="Animation_8sbve"]
+resource_name = "Hedrium_Ray"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [4.0, 1.0, 4.0, 1.0, 4.0, 1.0, 4.0, 1.0, 4.0, 1.0, 4.0, 1.0, 4.0, 1.0, 4.0, 1.0, 4.0, 1.0, 4.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_sa7gr"]
+resource_name = "Hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [5.0, 2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/Head:material:shader_parameter/offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [5.0, 2.0]
+}
+
+[sub_resource type="Animation" id="Animation_fhsvx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:material:shader_parameter/offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/Head:material:shader_parameter/offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n00pm"]
+_data = {
+"Eye_Light": SubResource("Animation_um3r0"),
+"Hedrium_Ray": SubResource("Animation_8sbve"),
+"Hurt": SubResource("Animation_sa7gr"),
+"RESET": SubResource("Animation_fhsvx")
+}
 
 [node name="Hedorah" type="Node2D"]
 material = SubResource("ShaderMaterial_0j4um")
@@ -1612,7 +1668,6 @@ material = SubResource("ShaderMaterial_sat3l")
 position = Vector2(-6, 4)
 sprite_frames = SubResource("SpriteFrames_lp8b5")
 animation = &"Walk"
-frame = 3
 speed_scale = 2.0
 offset = Vector2(1, -7)
 
@@ -1630,21 +1685,50 @@ libraries = {
 speed_scale = 0.96
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_q6lop")
 
 [node name="FlyCollision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(7, -1)
 shape = SubResource("RectangleShape2D_gkboe")
 
 [node name="Hitboxes" type="Node" parent="."]
 
+[node name="Laser0" type="CollisionShape2D" parent="Hitboxes"]
+position = Vector2(34, 7)
+rotation = 1.06465
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_t6uvd")
+
+[node name="Laser1" type="CollisionShape2D" parent="Hitboxes"]
+position = Vector2(56.4416, 2.96626)
+rotation = 0.523991
+shape = SubResource("RectangleShape2D_i8hw2")
+
+[node name="Laser2" type="CollisionShape2D" parent="Hitboxes"]
+position = Vector2(64, -18)
+shape = SubResource("RectangleShape2D_q6e3n")
+
+[node name="Laser3" type="CollisionShape2D" parent="Hitboxes"]
+position = Vector2(56, -51)
+rotation = -0.558505
+shape = SubResource("RectangleShape2D_413um")
+
 [node name="Punch" type="CollisionShape2D" parent="Hitboxes"]
+visible = false
 position = Vector2(29.4063, -2)
 shape = SubResource("RectangleShape2D_the1c")
 
-[node name="Laser" type="CollisionShape2D" parent="Hitboxes"]
-position = Vector2(60, -14)
-shape = SubResource("RectangleShape2D_e2vix")
+[node name="LaserFly" type="CollisionShape2D" parent="Hitboxes"]
+visible = false
+position = Vector2(62, 10)
+shape = SubResource("RectangleShape2D_the1c")
+
+[node name="FlashPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n00pm")
+}
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]

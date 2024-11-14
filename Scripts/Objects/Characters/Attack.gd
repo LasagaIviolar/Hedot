@@ -1,5 +1,7 @@
 extends "res://Scripts/Objects/Characters/PlayerState.gd"
 
+const Laser := preload("res://Objects/Characters/Laser.tscn")
+const HedorahRay := preload("res://Objects/Characters/HedorahRay.tscn")
 const HedorahSludge := preload("res://Objects/Characters/HedorahSludge.tscn")
 const MothraParticle := preload("res://Objects/Characters/MothraParticle.tscn")
 const GodzillaHeatBeam := preload("res://Objects/Characters/GodzillaHeatBeam.tscn")
@@ -164,6 +166,26 @@ func use(type: PlayerCharacter.Attack) -> void:
 			await player.animation_player.animation_finished
 			attack_component.stop_attack()
 			
+		PlayerCharacter.Attack.LASERBEAM_FLY:
+			flash_player.play("Eye_Light")
+			var particle := HedorahRay.instantiate()
+			Global.get_current_scene().add_child(particle)
+			
+			
+			particle.setup(particle.Type.LASERBEAM_FLY, player)
+			particle.position = Vector2(26, 0) + Vector2(8, 0)
+			particle.position.x *= player.direction
+			particle.scale.x = player.direction
+			particle.global_position = (
+				player.global_position + Vector2(60 * player.direction, -5)
+			)
+			
+			player.state.current = player.move_state
+			player.play_sfx("HedorahLaserFly")
+			attack_component.start_attack(2)
+			await player.animation_player.animation_finished
+			attack_component.stop_attack()
+			
 		PlayerCharacter.Attack.SLUDGE:
 			# Calculate the amount of power this attack should use
 			var power := mini(parent.power.value, 2 * 8)
@@ -221,24 +243,96 @@ func use(type: PlayerCharacter.Attack) -> void:
 			parent.state.current = parent.move_state
 			
 		PlayerCharacter.Attack.LASERBEAM:
-			# Calculate the amount of power this attack should use
-			var power := mini(parent.power.value, 6 * 8)
-			if power < (6):
-				parent.state.current = parent.move_state
+			var amount := 6 * 8
+			if player.power.value < amount:
 				return
-			
-			parent.power.use(power)
+			player.power.use(amount)
 			
 			player.animation_player.play("Hedrium_Ray")
-			player.play_sfx("HedorahPunch")
+			player.play_sfx("HedorahLaser")
 			
-			attack_component.set_hitbox_template("Laser")
+			attack_component.start_attack(5)
+			attack_component.set_hitbox_template("Laser0")
+			attack_component.start_attack(5)
+			await get_tree().create_timer(0.25, false).timeout
+			attack_component.set_hitbox_template("Laser0")
+			attack_component.start_attack(5)
+			await get_tree().create_timer(0.25, false).timeout
+			attack_component.set_hitbox_template("Laser0")
+			attack_component.start_attack(5)
+			await get_tree().create_timer(0.25, false).timeout
+			attack_component.set_hitbox_template("Laser0")
+			attack_component.start_attack(5)
+			await get_tree().create_timer(0.25, false).timeout
+			attack_component.set_hitbox_template("Laser1")
+			attack_component.start_attack(5)
+			await get_tree().create_timer(0.25, false).timeout
+			attack_component.set_hitbox_template("Laser2")
+			attack_component.start_attack(5)
+			await get_tree().create_timer(0.25, false).timeout
+			attack_component.set_hitbox_template("Laser3")
 			
-			attack_component.start_attack(2)
 			await player.animation_player.animation_finished
 			attack_component.stop_attack()
 			
 			parent.state.current = parent.move_state
+			
+		# Gigan-specific attacks
+		PlayerCharacter.Attack.LASER:
+			# Calculate the amount of power this attack should use
+			var power := mini(parent.power.value, 2 * 8)
+			
+			# Calculate the number of wing particles that should be created
+			var times := int(power / 2.6)
+			
+			# Not enough power for this attack
+			if times == 0:
+				parent.state.current = parent.move_state
+				return
+				
+			parent.power.use(power)
+			
+			for i in times:
+				var particle := Laser.instantiate()
+				Global.get_current_scene().add_child(particle)
+				
+				particle.setup(particle.Type.LASER, parent)
+				particle.global_position = (
+				parent.global_position + Vector2(12 * parent.direction, -35)
+			)
+				
+				await get_tree().create_timer(0.15, false).timeout
+				if not is_still_attacking(): return
+				
+			parent.state.current = parent.move_state
+			
+		PlayerCharacter.Attack.LASER_DOWN:
+			# Calculate the amount of power this attack should use
+			var power := mini(parent.power.value, 2 * 8)
+			
+			# Calculate the number of wing particles that should be created
+			var times := int(power / 2.6)
+			
+			# Not enough power for this attack
+			if times == 0:
+				parent.state.current = parent.move_state
+				return
+				
+			parent.power.use(power)
+			
+			for i in times:
+				var particle := Laser.instantiate()
+				Global.get_current_scene().add_child(particle)
+				
+				particle.setup(particle.Type.LASER_DOWN, parent)
+				particle.global_position = (
+				parent.global_position + Vector2(12 * parent.direction, -35)
+			)
+				
+				await get_tree().create_timer(0.15, false).timeout
+				if not is_still_attacking(): return
+				
+			parent.state.current = PlayerCharacter.State.FLY
 			
 func create_heat_beam() -> void:
 	const HEAT_BEAM_COUNT := 12
@@ -285,4 +379,7 @@ func _on_animation_finished(anim_name: String) -> void:
 			player.state.current = PlayerCharacter.State.WALK
 		"EyeBeam":
 			player.animation_player.play("RESET")
+			player.state.current = PlayerCharacter.State.FLY
+		"HedriumRayFly":
+			player.animation_player.play("Idle")
 			player.state.current = PlayerCharacter.State.FLY
