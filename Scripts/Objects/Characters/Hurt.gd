@@ -31,12 +31,14 @@ func state_entered() -> void:
 	if parent.character == PlayerCharacter.Type.HEDORAH:
 		flash_player.play("Hurt") 
 		parent.state.current = parent.move_state
+		player.has_input = true
 		if parent.move_state == PlayerCharacter.State.FLY:
 			flash_player.play("Hurt")
 			await flash_player.animation_finished
 			parent.animation_player.play("Idle")
 			parent.move_state = PlayerCharacter.State.FLY
 			parent.state.current = parent.move_state
+			player.has_input = true
 	if parent.character == PlayerCharacter.Type.GIGAN:
 		flash_player.play("Hurt") 
 		await player.animation_player.animation_finished
