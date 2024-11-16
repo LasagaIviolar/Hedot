@@ -41,7 +41,8 @@ func walk_process() -> void:
 		player.animation_player.play("Idle") 
 		
 	if player.inputs[PlayerCharacter.Inputs.YINPUT] > 0 \
-		and player.inputs_pressed[PlayerCharacter.Inputs.START]:
+		and player.inputs_pressed[PlayerCharacter.Inputs.START]\
+		and player.power.value >= 6 * 8:
 		player.use_attack(PlayerCharacter.Attack.LASERBEAM)
 		player.animation_player.speed_scale =+ 1
 		player.inputs[PlayerCharacter.Inputs.XINPUT] = 0

@@ -1699,7 +1699,6 @@ shape = SubResource("RectangleShape2D_gkboe")
 [node name="Laser0" type="CollisionShape2D" parent="Hitboxes"]
 position = Vector2(34, 7)
 rotation = 1.06465
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_t6uvd")
 
 [node name="Laser1" type="CollisionShape2D" parent="Hitboxes"]
