@@ -3,6 +3,7 @@ extends "res://Scripts/Objects/Characters/PlayerState.gd"
 const Laser := preload("res://Objects/Characters/Laser.tscn")
 const HedorahRay := preload("res://Objects/Characters/HedorahRay.tscn")
 const HedorahSludge := preload("res://Objects/Characters/HedorahSludge.tscn")
+const BlobBomb := preload("res://Objects/Characters/BlobBomb.tscn")
 const MothraParticle := preload("res://Objects/Characters/MothraParticle.tscn")
 const GodzillaHeatBeam := preload("res://Objects/Characters/GodzillaHeatBeam.tscn")
 
@@ -53,6 +54,9 @@ func use(type: PlayerCharacter.Attack) -> void:
 			player.play_sfx("Punch")
 			
 			attack_component.set_hitbox_template("Punch")
+			attack_component.global_position = (
+				player.global_position + Vector2(20 * player.direction, -20)
+			)
 			
 			attack_component.start_attack(2)
 			await player.animation_player.animation_finished
@@ -64,6 +68,9 @@ func use(type: PlayerCharacter.Attack) -> void:
 			player.play_sfx("Punch")
 			
 			attack_component.set_hitbox_template("Kick")
+			attack_component.global_position = (
+				player.global_position + Vector2(20 * player.direction, 12)
+			)
 			
 			attack_component.start_attack(2)
 			await player.animation_player.animation_finished
@@ -71,11 +78,15 @@ func use(type: PlayerCharacter.Attack) -> void:
 			
 		# Godzilla-specific attacks
 		PlayerCharacter.Attack.TAIL_WHIP:
+			player.play_sfx("GodzillaTailWhip")
 			player.animation_player.play("TailWhip")
 			await get_tree().create_timer(0.15, false).timeout
 			if not is_still_attacking(): return
 			
 			attack_component.set_hitbox_template("TailWhip")
+			attack_component.global_position = (
+				player.global_position + Vector2(30 * player.direction, 5.5)
+			)
 			
 			attack_component.start_attack(2)
 			await player.animation_player.animation_finished
@@ -161,6 +172,12 @@ func use(type: PlayerCharacter.Attack) -> void:
 			player.play_sfx("HedorahPunch")
 			
 			attack_component.set_hitbox_template("Punch")
+			attack_component.global_position = (
+				player.global_position + Vector2(20 * player.direction, -2)
+			)
+			attack_component.global_rotation = (
+				player.global_rotation + float(0 * player.direction)
+			)
 			
 			attack_component.start_attack(2)
 			await player.animation_player.animation_finished
@@ -185,6 +202,24 @@ func use(type: PlayerCharacter.Attack) -> void:
 			attack_component.start_attack(2)
 			await player.animation_player.animation_finished
 			attack_component.stop_attack()
+			
+		PlayerCharacter.Attack.BLOB_BOMB:
+			var amount := 1 * 8
+			if player.health.value < amount:
+				return
+			player.health.use(amount)
+			
+			var particle := BlobBomb.instantiate()
+			Global.get_current_scene().add_child(particle)
+			
+			particle.setup(particle.Type.BLOB_BOMB, player)
+			particle.global_position = (
+				player.global_position + Vector2(10 * player.direction, -2)
+			)
+			await get_tree().create_timer(0.15, false).timeout
+			if not is_still_attacking(): return
+			
+			player.state.current = player.move_state
 			
 		PlayerCharacter.Attack.SLUDGE:
 			# Calculate the amount of power this attack should use
@@ -251,48 +286,57 @@ func use(type: PlayerCharacter.Attack) -> void:
 			player.animation_player.play("Hedrium_Ray")
 			player.play_sfx("HedorahLaser")
 			
-			attack_component.start_attack(5)
+			attack_component.start_attack(5.5)
 			attack_component.set_hitbox_template("Laser0")
-			attack_component.start_attack(5)
-			await get_tree().create_timer(0.25, false).timeout
-			attack_component.set_hitbox_template("Laser0")
-			attack_component.start_attack(5)
-			await get_tree().create_timer(0.25, false).timeout
-			attack_component.set_hitbox_template("Laser0")
-			attack_component.start_attack(5)
-			await get_tree().create_timer(0.25, false).timeout
-			attack_component.set_hitbox_template("Laser0")
-			attack_component.start_attack(5)
-			await get_tree().create_timer(0.25, false).timeout
+			attack_component.global_position = (
+				player.global_position + Vector2(34 * player.direction, 7)
+			)
+			attack_component.global_rotation = (
+				player.global_rotation + float(61 * player.direction)
+			)
+			await get_tree().create_timer(1, false).timeout
+			attack_component.start_attack(5.5)
 			attack_component.set_hitbox_template("Laser1")
-			attack_component.start_attack(5)
+			attack_component.global_position = (
+				player.global_position + Vector2(56 * player.direction, 3)
+			)
+			attack_component.global_rotation = (
+				player.global_rotation + float(-15 * player.direction)
+			)
 			await get_tree().create_timer(0.25, false).timeout
+			attack_component.start_attack(6)
 			attack_component.set_hitbox_template("Laser2")
-			attack_component.start_attack(5)
+			attack_component.global_position = (
+				player.global_position + Vector2(64 * player.direction, -18)
+			)
+			attack_component.global_rotation = (
+				player.global_rotation + float(0 * player.direction)
+			)
 			await get_tree().create_timer(0.25, false).timeout
+			attack_component.start_attack(6)
 			attack_component.set_hitbox_template("Laser3")
+			attack_component.global_position = (
+				player.global_position + Vector2(56 * player.direction, -51)
+			)
+			attack_component.global_rotation = (
+				player.global_rotation + float(-32 * player.direction)
+			)
+			await get_tree().create_timer(0.25, false).timeout
 			
 			await player.animation_player.animation_finished
 			attack_component.stop_attack()
 			
-			parent.state.current = parent.move_state
+			player.animation_player.play("RESET")
+			player.state.current = PlayerCharacter.State.WALK
 			
 		# Gigan-specific attacks
 		PlayerCharacter.Attack.LASER:
-			# Calculate the amount of power this attack should use
-			var power := mini(parent.power.value, 2 * 8)
-			
-			# Calculate the number of wing particles that should be created
-			var times := int(power / 2.6)
-			
-			# Not enough power for this attack
-			if times == 0:
-				parent.state.current = parent.move_state
+			var amount := 2.5 * 8
+			if player.power.value < amount:
 				return
-				
-			parent.power.use(power)
+			player.power.use(amount)
 			
-			for i in times:
+			for i in range(5):
 				var particle := Laser.instantiate()
 				Global.get_current_scene().add_child(particle)
 				
@@ -307,20 +351,12 @@ func use(type: PlayerCharacter.Attack) -> void:
 			parent.state.current = parent.move_state
 			
 		PlayerCharacter.Attack.LASER_DOWN:
-			# Calculate the amount of power this attack should use
-			var power := mini(parent.power.value, 2 * 8)
-			
-			# Calculate the number of wing particles that should be created
-			var times := int(power / 2.6)
-			
-			# Not enough power for this attack
-			if times == 0:
-				parent.state.current = parent.move_state
+			var amount := 2.5 * 8
+			if player.power.value < amount:
 				return
-				
-			parent.power.use(power)
+			player.power.use(amount)
 			
-			for i in times:
+			for i in range(7):
 				var particle := Laser.instantiate()
 				Global.get_current_scene().add_child(particle)
 				
@@ -332,7 +368,7 @@ func use(type: PlayerCharacter.Attack) -> void:
 				await get_tree().create_timer(0.15, false).timeout
 				if not is_still_attacking(): return
 				
-			parent.state.current = PlayerCharacter.State.FLY
+			parent.state.current = parent.move_state
 			
 func create_heat_beam() -> void:
 	const HEAT_BEAM_COUNT := 12

@@ -526,12 +526,10 @@ shape = SubResource("RectangleShape2D_d8cwk")
 
 [node name="Punch" type="CollisionShape2D" parent="Hitboxes"]
 visible = false
-position = Vector2(20, -20)
 shape = SubResource("RectangleShape2D_8277w")
 
 [node name="Kick" type="CollisionShape2D" parent="Hitboxes"]
 visible = false
-position = Vector2(20, 12)
 shape = SubResource("RectangleShape2D_6lyr4")
 
 [node name="FlashPlayer" type="AnimationPlayer" parent="."]

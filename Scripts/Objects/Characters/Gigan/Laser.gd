@@ -8,12 +8,14 @@ enum Type {
 @onready var timer := $Timer
 @onready var animation_player := $AnimationPlayer
 @onready var attack_component: Node2D = $AttackComponent
+@onready var player: PlayerCharacter
 
 var velocity := Vector2()
 var type: Type
 
 @warning_ignore("shadowed_variable")
 func setup(init_type: Type, player: PlayerCharacter) -> void:
+	self.player = player
 	type = init_type
 	attack_component.objects_to_ignore.append(player)
 	attack_component.enemy = player.attack.enemy
@@ -25,14 +27,12 @@ func setup(init_type: Type, player: PlayerCharacter) -> void:
 			animation = "LASER"
 			animation_player.play("LASER")
 			timer.start(0.4)
-			velocity = Vector2(randi_range(3, 3) * 1 * 60 * player.direction,
-							randi_range(3, 3) * 0 * 60)
+			velocity = Vector2(5 * player.direction * 60, 0)
 		Type.LASER_DOWN:
 			animation = "LASER_DOWN"
 			animation_player.play("LASER_DOWN")
 			timer.start(0.4)
-			velocity = Vector2(randi_range(6, 6) * 0.3 * 60 * player.direction,
-							randi_range(6, 6) *  0.25 * 60)
+			velocity = Vector2(6, 6) * 0.3 * 60 * player.direction
 	attack_component.attacked.connect(func(_body: Node2D, _amount: float) -> void:
 		queue_free()
 		)

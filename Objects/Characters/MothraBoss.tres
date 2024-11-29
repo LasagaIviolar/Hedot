@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://q0hw0mahxkqi"]
+
+[ext_resource type="Shader" path="res://Shaders/PaletteSwapOffset.gdshader" id="1_dr75v"]
+[ext_resource type="Texture2D" uid="uid://bf3s75s5heyir" path="res://Sprites/Characters/Mothra/Mothpallete.png" id="2_54iet"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_dr75v")
+shader_parameter/use_palette_alpha = false
+shader_parameter/offset = 1.0
+shader_parameter/palette = ExtResource("2_54iet")

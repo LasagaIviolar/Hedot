@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bdedrxocj46sr"]
+[gd_scene load_steps=28 format=3 uid="uid://bdedrxocj46sr"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/PlayerCharacter.gd" id="1_c8c0q"]
 [ext_resource type="PackedScene" uid="uid://camascwoory5h" path="res://Objects/HealthComponent.tscn" id="3_bws3y"]
@@ -24,6 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://cj20gu86l82j" path="res://Audio/SFX/Hedorah_Laser_Fly.wav" id="19_njkjx"]
 [ext_resource type="AudioStream" uid="uid://cclkbj3uc0v6f" path="res://Audio/SFX/Hedorah_Bblob_Explode.wav" id="20_7ayjp"]
 [ext_resource type="AudioStream" uid="uid://c6x2t01wt1fg7" path="res://Audio/SFX/Hedorah_Blob_Merge.wav" id="21_yq4bv"]
+[ext_resource type="AudioStream" uid="uid://cifg3bquhs3vi" path="res://Audio/SFX/GodzillaTailWhip.wav" id="22_gnfw4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ywk1q"]
 font_size = 8
@@ -138,10 +139,15 @@ bus = &"SFX"
 
 [node name="HedorahBlobBomb" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("20_7ayjp")
+volume_db = 5.0
 bus = &"SFX"
 
 [node name="HedorahBlobMerge" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("21_yq4bv")
+bus = &"SFX"
+
+[node name="GodzillaTailWhip" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("22_gnfw4")
 bus = &"SFX"
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_bws3y")]

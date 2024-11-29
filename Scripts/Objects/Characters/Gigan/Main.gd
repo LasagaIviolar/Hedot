@@ -12,8 +12,10 @@ func _process(_delta: float) -> void:
 func walk_process() -> void:
 	common_ground_attacks()
 	if player.inputs[PlayerCharacter.Inputs.YINPUT] > 0 \
-		and player.inputs_pressed[PlayerCharacter.Inputs.A]:
+		and player.inputs_pressed[PlayerCharacter.Inputs.A]\
+		and player.power.value >= 2.5 * 8:
 		player.use_attack(PlayerCharacter.Attack.LASER)
 	if player.inputs[PlayerCharacter.Inputs.YINPUT] > 0 \
-		and player.inputs_pressed[PlayerCharacter.Inputs.B]:
+		and player.inputs_pressed[PlayerCharacter.Inputs.B]\
+		and player.power.value >= 2.5 * 8:
 		player.use_attack(PlayerCharacter.Attack.LASER_DOWN)
