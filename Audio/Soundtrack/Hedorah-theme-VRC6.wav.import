@@ -3,12 +3,11 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dffw7j5dje4h"
-path="res://.godot/imported/Hedorah-theme-VRC6.wav-a9da6dfd4e0a38f6eb711594b7de9091.sample"
+valid=false
 
 [deps]
 
 source_file="res://Audio/Soundtrack/Hedorah-theme-VRC6.wav"
-dest_files=["res://.godot/imported/Hedorah-theme-VRC6.wav-a9da6dfd4e0a38f6eb711594b7de9091.sample"]
 
 [params]
 
