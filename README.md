@@ -1,5 +1,5 @@
 # IURI's Playable Hedorah Mod - Godotzilla Recreation Project
-IURI's Playable Hedorah Mod is a mod that recreates Hedorah from IURI'S NGC new character showcase, which was not released.
+IURI's Playable Hedorah Mod is a mod that recreates Hedorah from IURI's NGC new character showcase, which was not released.
 
 Godotzilla framework and this mod can be used for anything you want, this includes but not limited to:
 - GMoM remakes
