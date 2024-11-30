@@ -52,11 +52,11 @@ func _process(_delta: float) -> void:
 			player.get_sfx("HedorahMorphOut").play()
 			player.animation_player.play("TransformationOut")
 			player.animation_player.speed_scale =+ 1
+			var had_input := player.has_input
+			player.has_input = false
 			player.inputs[PlayerCharacter.Inputs.XINPUT] = 0.0
 			player.inputs[PlayerCharacter.Inputs.YINPUT] = 0.0
 			player.inputs_pressed[PlayerCharacter.Inputs.START] = false
-			var had_input := player.has_input
-			player.has_input = false
 			player.move_speed = 1 * 60
 			await get_tree().create_timer(0.5, false).timeout
 			
