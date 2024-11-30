@@ -46,6 +46,7 @@ func _process(_delta: float) -> void:
 			)
 			timer.start(0.4)
 		if player.inputs_pressed[PlayerCharacter.Inputs.START]:
+			player.skin.get_node("Body/Head").visible = false
 			player.move_state = PlayerCharacter.State.WALK
 			player.state.current = player.move_state
 			player.get_sfx("HedorahMorphOut").play()

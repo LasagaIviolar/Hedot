@@ -29,6 +29,8 @@ func state_entered() -> void:
 			await get_tree().process_frame
 			player.animation_player.play("Hurt")
 	if parent.character == PlayerCharacter.Type.HEDORAH:
+		player.animation_player.play("RESET")
+		await get_tree().process_frame
 		flash_player.play("Hurt") 
 		parent.state.current = parent.move_state
 		if parent.move_state == PlayerCharacter.State.FLY:
