@@ -29,10 +29,9 @@ func state_entered() -> void:
 			await get_tree().process_frame
 			player.animation_player.play("Hurt")
 	if parent.character == PlayerCharacter.Type.HEDORAH:
+		flash_player.play("Hurt")
+		await flash_player.animation_finished
 		player.animation_player.play("RESET")
-		await get_tree().process_frame
-		flash_player.play("Hurt") 
-		parent.state.current = parent.move_state
 		if parent.move_state == PlayerCharacter.State.FLY:
 			flash_player.play("Hurt")
 			parent.animation_player.play("Idle")
