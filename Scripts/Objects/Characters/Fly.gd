@@ -1,13 +1,18 @@
 extends "res://Scripts/Objects/Characters/PlayerState.gd"
 
+const BlobDrop := preload("res://Objects/Characters/BlobDrop.tscn")
+
 const YLIMIT = 72
 var floor_checking: Area2D
 var attack_timer := Timer.new()
+var timer := Timer.new()
 
 func state_init() -> void:
 	floor_checking = player.get_node("MothraFloorChecking")
 	attack_timer.one_shot = true
 	add_child(attack_timer)
+	timer.one_shot = true
+	add_child(timer)
 
 func _physics_process(delta: float) -> void:
 	move(delta)
@@ -24,29 +29,48 @@ func _process(_delta: float) -> void:
 			player.use_attack(PlayerCharacter.Attack.WING_ATTACK)
 
 			
-	if parent.character == PlayerCharacter.Type.HEDORAH:
-		if parent.move_state == PlayerCharacter.State.FLY\
-		and parent.inputs_pressed[PlayerCharacter.Inputs.START]:
-			parent.animation_player.play("TransformationOut")
-			parent.animation_player.speed_scale =+ 1
-			parent.get_sfx("HedorahMorphOut").play()
-			parent.inputs[PlayerCharacter.Inputs.XINPUT] = 0
-			parent.inputs[PlayerCharacter.Inputs.YINPUT] = 0
-			parent.inputs_pressed[PlayerCharacter.Inputs.START] = false
-			parent.has_input = false
-			parent.move_speed = 1 * 60
-			await parent.animation_player.animation_finished
-			parent.has_input = true
+	if player.character == PlayerCharacter.Type.HEDORAH:
+		low_hp()
+		if timer.is_stopped():
+			var amount := 0.1 * 8
+			if player.health.value < amount:
+				return
+			player.health.use(amount)
 			
-			parent.move_state = PlayerCharacter.State.WALK
-			parent.state.current = parent.move_state
-			parent.animation_player.play("Walk") 
-			parent.skin.get_node("Body/Head").visible = true
-		if (player.inputs_pressed[player.Inputs.A]
-			or player.inputs_pressed[player.Inputs.B]) \
+			var particle := BlobDrop.instantiate()
+			Global.get_current_scene().add_child(particle)
+			
+			particle.setup(particle.Type.BLOB_DROP, player)
+			particle.global_position = (
+				player.global_position + Vector2(10 * player.direction, -2)
+			)
+			timer.start(0.4)
+		if player.inputs_pressed[PlayerCharacter.Inputs.START]:
+			player.move_state = PlayerCharacter.State.WALK
+			player.state.current = player.move_state
+			player.get_sfx("HedorahMorphOut").play()
+			player.animation_player.play("TransformationOut")
+			player.animation_player.speed_scale =+ 1
+			player.inputs[PlayerCharacter.Inputs.XINPUT] = 0.0
+			player.inputs[PlayerCharacter.Inputs.YINPUT] = 0.0
+			player.inputs_pressed[PlayerCharacter.Inputs.START] = false
+			var had_input := player.has_input
+			player.has_input = false
+			player.move_speed = 1 * 60
+			await get_tree().create_timer(0.5, false).timeout
+			
+			player.has_input = had_input
+			player.animation_player.play("Walk") 
+			player.skin.get_node("Body/Head").visible = true
+			
+		if (player.inputs_pressed[player.Inputs.A])\
 			and attack_timer.is_stopped():
 				player.use_attack(PlayerCharacter.Attack.LASERBEAM_FLY)
 				attack_timer.start(0.2)
+		if (player.inputs_pressed[player.Inputs.B])\
+			and attack_timer.is_stopped():
+				player.use_attack(PlayerCharacter.Attack.BLOB_BOMB)
+				attack_timer.start(1)
 
 func move(delta: float) -> void:
 	var xspeed: float = player.move_speed
@@ -78,3 +102,7 @@ func move(delta: float) -> void:
 
 func reset() -> void:
 	player.animation_player.play("Idle")
+	
+func low_hp() -> void:
+	if player.health.value <= 3 * 8:
+		player.inputs_pressed[PlayerCharacter.Inputs.START] = true

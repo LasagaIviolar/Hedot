@@ -1080,17 +1080,14 @@ shape = SubResource("RectangleShape2D_wf06n")
 
 [node name="Punch" type="CollisionShape2D" parent="Hitboxes"]
 visible = false
-position = Vector2(20, -20)
 shape = SubResource("RectangleShape2D_8277w")
 
 [node name="Kick" type="CollisionShape2D" parent="Hitboxes"]
 visible = false
-position = Vector2(20, 12)
 shape = SubResource("RectangleShape2D_6lyr4")
 
 [node name="TailWhip" type="CollisionShape2D" parent="Hitboxes"]
 visible = false
-position = Vector2(30, 5.5)
 shape = SubResource("RectangleShape2D_oeti2")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]

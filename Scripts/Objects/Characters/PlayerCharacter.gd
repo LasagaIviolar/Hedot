@@ -40,6 +40,7 @@ enum Attack {
 	SLUDGE_DOWN,
 	LASERBEAM,
 	BLOB_BOMB,
+	BLOB_DROP,
 	LASERBEAM_FLY,
 	
 	# Gigan attacks
@@ -282,6 +283,8 @@ func is_hurtable() -> bool:
 func _on_health_damaged(_amount: float, hurt_time: float) -> void:
 	var attack_state := $StateMachine/Attack
 	if state.current == State.ATTACK and attack_state.current_attack in [Attack.HEAT_BEAM, Attack.LASERBEAM]:
+		hurt_time = 0
+	if animation_player.current_animation in ["TransformationIn", "TransformationOut"]:
 		hurt_time = 0
 		
 	if hurt_time < 0:

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://qh2carswvqcn"]
+
+[ext_resource type="PackedScene" uid="uid://cin1i4pomwy3a" path="res://Scenes/Bosses/BaseBoss.tscn" id="1_7jjwc"]
+[ext_resource type="Script" path="res://Scripts/Levels/Bosses/Hedorah.gd" id="2_co1cb"]
+[ext_resource type="AudioStream" uid="uid://cew22e8i484w5" path="res://Audio/Soundtrack/Hedorah-theme-VRC6.ogg" id="3_x76kg"]
+[ext_resource type="PackedScene" uid="uid://c5dxisb0ti6n0" path="res://Objects/Levels/Ceiling.tscn" id="4_fp87b"]
+
+[node name="Boss" instance=ExtResource("1_7jjwc")]
+script = ExtResource("2_co1cb")
+music = ExtResource("3_x76kg")
+right_boundary_behaviour = 1
+
+[node name="Floor" parent="." index="2"]
+offset_left = 16.0
+offset_right = 116.0
+
+[node name="HUD" parent="." index="5"]
+boss_bar_color = Color(0, 0.235294, 0.0784314, 1)
+
+[node name="Ceiling" parent="." index="6" instance=ExtResource("4_fp87b")]
+offset_top = 48.0
+offset_bottom = 64.0

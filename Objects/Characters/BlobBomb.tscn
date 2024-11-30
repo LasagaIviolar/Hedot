@@ -1,0 +1,235 @@
+[gd_scene load_steps=17 format=3 uid="uid://401co2r3aqb0"]
+
+[ext_resource type="Texture2D" uid="uid://dyhkc05gfttgg" path="res://Sprites/Characters/Hedorah/spHedorah_BBlob_strip4.png" id="1_qfv7m"]
+[ext_resource type="Texture2D" uid="uid://bno3hvlywodiw" path="res://Sprites/Characters/Hedorah/nothing.png" id="2_u0vbc"]
+[ext_resource type="Script" path="res://Scripts/Objects/Characters/Hedorah/BlobBomb.gd" id="5_sm3tt"]
+[ext_resource type="PackedScene" uid="uid://bi7wq6b7la5ki" path="res://Objects/AttackComponent.tscn" id="6_hcedl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xekp"]
+atlas = ExtResource("1_qfv7m")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfmrx"]
+atlas = ExtResource("1_qfv7m")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjc8b"]
+atlas = ExtResource("1_qfv7m")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgjve"]
+atlas = ExtResource("1_qfv7m")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dfex"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xekp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfmrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjc8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgjve")
+}],
+"loop": true,
+"name": &"Blob_Bomb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u0vbc")
+}],
+"loop": true,
+"name": &"Sludge_Boom",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_rg6vx"]
+resource_name = "Blob_Bomb"
+length = 0.15
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Blob_Bomb"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_o8vym"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Blob_Bomb"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_yy0va"]
+resource_name = "Flash"
+length = 0.4
+loop_mode = 1
+step = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 1, 0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Sludge"]
+}
+
+[sub_resource type="Animation" id="Animation_60533"]
+resource_name = "Sludge_Boom"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Sludge_Boom"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_6e7ll"]
+resource_name = "Sludge_Down"
+length = 0.4
+loop_mode = 1
+step = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 1, 0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Sludge"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4aq1u"]
+_data = {
+"Blob_Bomb": SubResource("Animation_rg6vx"),
+"RESET": SubResource("Animation_o8vym"),
+"Sludge": SubResource("Animation_yy0va"),
+"Sludge_Boom": SubResource("Animation_60533"),
+"Sludge_Down": SubResource("Animation_6e7ll")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2hdft"]
+
+[node name="BlobBomb" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_8dfex")
+animation = &"Blob_Bomb"
+speed_scale = 1.5
+script = ExtResource("5_sm3tt")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4aq1u")
+}
+
+[node name="AttackComponent" parent="." instance=ExtResource("6_hcedl")]
+default_attack_amount = 3.0
+
+[node name="AttackComponent2" parent="." instance=ExtResource("6_hcedl")]
+default_attack_amount = 3.0
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+priority = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_2hdft")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

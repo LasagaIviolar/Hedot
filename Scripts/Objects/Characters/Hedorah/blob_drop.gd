@@ -3,62 +3,70 @@ extends AnimatedSprite2D
 enum Type {
 	BLOB_DROP,
 }
-@warning_ignore("unused_parameter")
+
 @onready var timer := $Timer
 @onready var animation_player := $AnimationPlayer
-@onready var player : Node2D = $Player
-@onready var attack_component: Node2D = $AttackComponent
+@onready var player: PlayerCharacter
+@onready var area_2d: Area2D = $Area2D
+@onready var sfx: AudioStreamPlayer = $SFX
 
 var velocity := Vector2()
+var is_on_floor = false
+var magnetic = false
 var type: Type
 
 @warning_ignore("shadowed_variable")
 func setup(init_type: Type, player: PlayerCharacter) -> void:
 	self.player = player
 	type = init_type
-	attack_component.objects_to_ignore.append(player)
-	attack_component.enemy = player.attack.enemy
-	attack_component.attacked.connect(player._on_attack_component_attacked)
-	
 	scale.x = player.direction
+	
 	match type:
 		Type.BLOB_DROP:
-			animation = "BlobDropFall"
-			animation_player.play("BlobDropFall")
-			timer.start(0.4)
-			velocity = Vector2(randi_range(6, 8) * 0.085 * 60 * player.direction,
-							randi_range(6, 9) * -0.1 * 60)
-	attack_component.set_collision(
-		sprite_frames.get_frame_texture(animation, 0).get_size(),
-		Vector2.ZERO
-		)
-		
+			animation = "Blob_Drop"
+			animation_player.play("Blob_Drop")
+	
 func _physics_process(delta: float) -> void:
-	if type == Type.BLOB_DROP:
-		velocity.y += 1 * 60 * delta
+	if is_on_floor:
+		velocity = Vector2.ZERO
+	else:
+		velocity.y += 1 * 60 * 7.5 * delta
 	position += velocity * delta
-	var camera := get_viewport().get_camera_2d()
-	var limit: float = Global.get_content_size().y + 20.0
-	if camera != null:
-		limit += camera.get_screen_center_position().y
-	if position.y > limit:
-		queue_free()
+	if magnetic:
+		magnet_blobs(player)
+		velocity = Vector2.ZERO
+
 @warning_ignore("unused_parameter")
 func _on_area_2d_body_entered(body: Node2D) -> void:
-		if body != player:
-			velocity = Vector2.ZERO
-			animation = "BlobDropDead"
-			animation_player.play("BlobDropDead")
-			await animation_player.animation_finished
-			queue_free()
-			
-func createone (root):
+	is_on_floor = true
+	magnetic = true
+	animation_player.play("BlobDropGround")
+	await get_tree().create_timer(8, false).timeout
+	animation_player.play("BlobDropDead")
+	await animation_player.animation_finished
+	queue_free()
 	
-	var parent = CharacterBody2D.new()
-	var circle = CircleShape2D.new()
-	circle.radius = 10.0 # probably your own variable here
+@warning_ignore("shadowed_variable")
+func magnet_blobs(player: PlayerCharacter) -> void:
+	if player.move_state == PlayerCharacter.State.WALK\
+		and magnetic == true:
+		is_on_floor = false
+		var a = 0.1
+		var b = 0
+		var DestX = player.position.x
+		var DestY = player.position.y
+		position.x += (-a * (position.x - DestX)) + (b * (position.y - DestY))
+		position.y += (-b * (position.x - DestX)) - (a * (position.y - DestY))
+		animation_player.play("BlobDropMagnet")
+		await player.animation_player.animation_finished
+		destroy(player)
+	if player.move_state == PlayerCharacter.State.FLY:
+		magnetic == false
+
+func destroy(character: PlayerCharacter) -> void:
+	if timer.is_stopped():
+		player.play_sfx("HedorahBlobMerge")
 		
-	var BLOB_DROP = CollisionShape2D.new()
-	
-	parent.add_child(BLOB_DROP)	
-	root.add_child(parent,7)
+		player.health.heal(0.105 * 8)
+		queue_free()
+		timer.start(0.4)

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ofnb3g5tqb27" path="res://Sprites/Characters/Gigan/giganpal.png" id="2_fdngi"]
 
 [resource]
+resource_local_to_scene = true
 shader = ExtResource("1_26rw8")
 shader_parameter/use_palette_alpha = false
 shader_parameter/offset = 1.0

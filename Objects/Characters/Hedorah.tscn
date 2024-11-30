@@ -13,12 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://bwnbof3gph6w8" path="res://Sprites/Characters/Hedorah/punch2.png" id="6_ovd55"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0j4um"]
+resource_local_to_scene = true
 shader = ExtResource("3_7a0b2")
 shader_parameter/use_palette_alpha = false
 shader_parameter/offset = 2.0
 shader_parameter/palette = ExtResource("4_2c6vj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sat3l"]
+resource_local_to_scene = true
 shader = ExtResource("3_7a0b2")
 shader_parameter/use_palette_alpha = false
 shader_parameter/offset = 2.0
@@ -756,6 +758,7 @@ animations = [{
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8j5nq"]
+resource_local_to_scene = true
 shader = ExtResource("3_7a0b2")
 shader_parameter/use_palette_alpha = false
 shader_parameter/offset = 2.0
@@ -1549,16 +1552,16 @@ size = Vector2(36, 28)
 size = Vector2(72, 34.2166)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i8hw2"]
-size = Vector2(93.1661, 34.4807)
+size = Vector2(93, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q6e3n"]
-size = Vector2(93.1661, 29)
+size = Vector2(93.166, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_413um"]
-size = Vector2(93.1661, 29)
+size = Vector2(93, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_the1c"]
-size = Vector2(72.5938, 29.5)
+size = Vector2(56, 29)
 
 [sub_resource type="Animation" id="Animation_um3r0"]
 resource_name = "Eye_Light"
@@ -1697,27 +1700,25 @@ shape = SubResource("RectangleShape2D_gkboe")
 [node name="Hitboxes" type="Node" parent="."]
 
 [node name="Laser0" type="CollisionShape2D" parent="Hitboxes"]
-position = Vector2(34, 7)
-rotation = 1.06465
+visible = false
+position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_t6uvd")
 
 [node name="Laser1" type="CollisionShape2D" parent="Hitboxes"]
-position = Vector2(56.4416, 2.96626)
-rotation = 0.523991
+visible = false
 shape = SubResource("RectangleShape2D_i8hw2")
 
 [node name="Laser2" type="CollisionShape2D" parent="Hitboxes"]
-position = Vector2(64, -18)
+visible = false
+position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_q6e3n")
 
 [node name="Laser3" type="CollisionShape2D" parent="Hitboxes"]
-position = Vector2(56, -51)
-rotation = -0.558505
+visible = false
 shape = SubResource("RectangleShape2D_413um")
 
 [node name="Punch" type="CollisionShape2D" parent="Hitboxes"]
 visible = false
-position = Vector2(29.4063, -2)
 shape = SubResource("RectangleShape2D_the1c")
 
 [node name="LaserFly" type="CollisionShape2D" parent="Hitboxes"]
@@ -1729,5 +1730,7 @@ shape = SubResource("RectangleShape2D_the1c")
 libraries = {
 "": SubResource("AnimationLibrary_n00pm")
 }
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]

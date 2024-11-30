@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Objects/Characters/Mothra/Main.gd" id="1_p8tms"]
 [ext_resource type="AudioStream" uid="uid://d3q5gj1fhphte" path="res://Audio/SFX/MothraStep.wav" id="2_p6fl7"]
 [ext_resource type="AudioStream" uid="uid://ccjlv2riqxvf3" path="res://Audio/SFX/MothraRoar.wav" id="3_kfkrj"]
-[ext_resource type="Material" uid="uid://wx3q8iungsvn" path="res://Objects/Characters/Mothra.tres" id="5_mf6jf"]
+[ext_resource type="Material" uid="uid://q0hw0mahxkqi" path="res://Objects/Characters/MothraBoss.tres" id="5_fxebk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w0xxw"]
 atlas = ExtResource("1_64xd3")
@@ -320,7 +320,7 @@ step_sfx = ExtResource("2_p6fl7")
 roar_sfx = ExtResource("3_kfkrj")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
-material = ExtResource("5_mf6jf")
+material = ExtResource("5_fxebk")
 position = Vector2(-12, -28)
 sprite_frames = SubResource("SpriteFrames_ihex8")
 animation = &"idle"
@@ -331,7 +331,6 @@ libraries = {
 }
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-4, 1)
 shape = SubResource("RectangleShape2D_ta221")
 
