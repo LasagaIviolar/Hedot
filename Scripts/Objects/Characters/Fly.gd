@@ -64,6 +64,7 @@ func _process(_delta: float) -> void:
 			player.animation_player.play("Walk") 
 			player.skin.get_node("Body/Head").visible = true
 			
+			
 		if (player.inputs_pressed[player.Inputs.A])\
 			and attack_timer.is_stopped():
 				player.use_attack(PlayerCharacter.Attack.LASERBEAM_FLY)

@@ -35,3 +35,11 @@ func common_ground_attacks() -> void:
 		and player.inputs_pressed[PlayerCharacter.Inputs.B]:
 			player.use_attack(PlayerCharacter.Attack.KICK)
 			
+func gigan_ground_attacks() -> void:
+	if player.inputs[PlayerCharacter.Inputs.YINPUT] <= 0\
+		and player.inputs_pressed[PlayerCharacter.Inputs.A]:
+		player.use_attack(PlayerCharacter.Attack.PUNCH)
+	if player.inputs[PlayerCharacter.Inputs.YINPUT] <= 0\
+		and player.inputs_pressed[PlayerCharacter.Inputs.B]:
+			player.use_attack(PlayerCharacter.Attack.KICK)
+			

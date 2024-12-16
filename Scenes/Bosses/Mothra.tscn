@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://df3jptqtpl75u"]
+[gd_scene load_steps=7 format=3 uid="uid://df3jptqtpl75u"]
 
 [ext_resource type="PackedScene" uid="uid://cin1i4pomwy3a" path="res://Scenes/Bosses/BaseBoss.tscn" id="1_vvhpb"]
 [ext_resource type="Script" path="res://Scripts/Levels/Bosses/Mothra.gd" id="2_rggxb"]
 [ext_resource type="AudioStream" uid="uid://by7wimbn2cemn" path="res://Audio/Soundtrack/MogueraTheme.ogg" id="3_ab880"]
 [ext_resource type="PackedScene" uid="uid://c5dxisb0ti6n0" path="res://Objects/Levels/Ceiling.tscn" id="4_j8rhg"]
+[ext_resource type="Texture2D" uid="uid://vj33t0l0d55d" path="res://Sprites/spEarth_BossFrame.png" id="5_da7ib"]
+[ext_resource type="Texture2D" uid="uid://do6fe8oi8ekm4" path="res://Sprites/spEarth_BossFrame_Frame.png" id="6_5d38x"]
 
 [node name="Boss" instance=ExtResource("1_vvhpb")]
 script = ExtResource("2_rggxb")
@@ -12,6 +14,22 @@ music = ExtResource("3_ab880")
 [node name="Boss" parent="." index="3"]
 character = 1
 
+[node name="HUD" parent="." index="5"]
+boss_bar_color = Color(0.207843, 0.223529, 0, 1)
+
 [node name="Ceiling" parent="." index="6" instance=ExtResource("4_j8rhg")]
 offset_top = 48.0
 offset_bottom = 64.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
+offset = Vector2(0, 80)
+transform = Transform2D(1, 0, 0, 1, 0, 80)
+
+[node name="SpEarthBossFrame" type="Sprite2D" parent="CanvasLayer" index="0"]
+texture = ExtResource("5_da7ib")
+centered = false
+
+[node name="SpEarthBossFrameFrame" type="Sprite2D" parent="CanvasLayer" index="1"]
+position = Vector2(14, 0)
+texture = ExtResource("6_5d38x")
+centered = false

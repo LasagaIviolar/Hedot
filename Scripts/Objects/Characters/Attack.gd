@@ -15,11 +15,17 @@ var attack_component: AttackComponent
 
 var flash_player: AnimationPlayer
 
+var timer := Timer.new()
+
+var velocity := Vector2()
+
 func state_init() -> void:
 	attack_component = player.attack
 	move_state = player.state.states_list[player.move_state]
 	player.animation_player.animation_finished.connect(_on_animation_finished)
 	flash_player = player.skin.get_node("FlashPlayer")
+	timer.one_shot = true
+	add_child(timer)
 	
 var save_allow_direction_changing := false
 func state_entered() -> void:
@@ -137,6 +143,7 @@ func use(type: PlayerCharacter.Attack) -> void:
 			player.animation_player.speed_scale = 2
 			
 			# Calculate the amount of power this attack should use
+			@warning_ignore("narrowing_conversion")
 			var power := mini(player.power.value, 2 * 8)
 			
 			# Calculate the number of wing particles that should be created
@@ -180,7 +187,7 @@ func use(type: PlayerCharacter.Attack) -> void:
 			)
 			
 			attack_component.start_attack(2)
-			await player.animation_player.animation_finished
+			await get_tree().create_timer(0.4, false).timeout
 			attack_component.stop_attack()
 			
 		PlayerCharacter.Attack.LASERBEAM_FLY:
@@ -282,6 +289,13 @@ func use(type: PlayerCharacter.Attack) -> void:
 			if player.power.value < amount:
 				return
 			player.power.use(amount)
+			player.animation_player.speed_scale =+ 1
+			player.inputs[PlayerCharacter.Inputs.XINPUT] = 0.0
+			player.inputs[PlayerCharacter.Inputs.YINPUT] = 0.0
+			player.inputs_pressed[PlayerCharacter.Inputs.START] = false
+			var had_input := player.has_input
+			player.has_input = false
+			player.velocity.y = 0
 			
 			player.animation_player.play("Hedrium_Ray")
 			player.play_sfx("HedorahLaser")
@@ -328,35 +342,59 @@ func use(type: PlayerCharacter.Attack) -> void:
 			
 			player.animation_player.play("RESET")
 			player.state.current = PlayerCharacter.State.WALK
+			player.has_input = had_input
+			player.skin.get_node("Body/Head").visible = true 
+			player.animation_player.play("Walk")
 			
 		# Gigan-specific attacks
 		PlayerCharacter.Attack.LASER:
-			var amount := 2.5 * 8
-			if player.power.value < amount:
-				return
-			player.power.use(amount)
+			player.animation_player.play("Laser")
+			player.play_sfx("Roar")
 			
-			for i in range(5):
-				var particle := Laser.instantiate()
-				Global.get_current_scene().add_child(particle)
+			var power := mini(parent.power.value, 2 * 8)
+			
+			# Calculate the number of wing particles that should be created
+			var times := int(power / 2.5)
+			
+			# Not enough power for this attack
+			if times == 0:
+				parent.state.current = parent.move_state
+				return
 				
-				particle.setup(particle.Type.LASER, parent)
-				particle.global_position = (
-				parent.global_position + Vector2(12 * parent.direction, -35)
-			)
+			parent.power.use(power)
+			
+			for i in times:
+					var particle := Laser.instantiate()
+					Global.get_current_scene().add_child(particle)
+					
+					particle.setup(particle.Type.LASER, parent)
+					particle.global_position = (
+					parent.global_position + Vector2(12 * parent.direction, -35)
+				)
+					await get_tree().create_timer(0.03, false).timeout
+					if not is_still_attacking(): return
 				
-				await get_tree().create_timer(0.15, false).timeout
-				if not is_still_attacking(): return
-				
+			await player.animation_player.animation_finished
+			attack_component.stop_attack()
 			parent.state.current = parent.move_state
 			
 		PlayerCharacter.Attack.LASER_DOWN:
-			var amount := 2.5 * 8
-			if player.power.value < amount:
-				return
-			player.power.use(amount)
+			player.animation_player.play("Laser")
+			player.play_sfx("Roar")
 			
-			for i in range(7):
+			var power := mini(parent.power.value, 2 * 8)
+			
+			# Calculate the number of wing particles that should be created
+			var times := int(power / 2.5)
+			
+			# Not enough power for this attack
+			if times == 0:
+				parent.state.current = parent.move_state
+				return
+				
+			parent.power.use(power)
+			
+			for i in times:
 				var particle := Laser.instantiate()
 				Global.get_current_scene().add_child(particle)
 				
@@ -365,11 +403,65 @@ func use(type: PlayerCharacter.Attack) -> void:
 				parent.global_position + Vector2(12 * parent.direction, -35)
 			)
 				
-				await get_tree().create_timer(0.15, false).timeout
+				await get_tree().create_timer(0.03, false).timeout
 				if not is_still_attacking(): return
 				
+			await player.animation_player.animation_finished
+			attack_component.stop_attack()
 			parent.state.current = parent.move_state
 			
+		PlayerCharacter.Attack.BUZZSAW:
+			var amount := 2 * 8
+			if player.power.value < amount:
+				return
+			player.power.use(amount)
+			
+			player.animation_player.play("BuzzSaw1")
+			await get_tree().create_timer(0.125, false).timeout
+			player.animation_player.play("BuzzSaw2")
+			await get_tree().create_timer(0.125, false).timeout
+			player.animation_player.play("BuzzSaw3")
+			var had_input := player.has_input
+			player.has_input = false
+			var had_input_GIGAN := player.has_input_GIGAN
+			player.has_input_GIGAN = true
+			player.inputs[PlayerCharacter.Inputs.XINPUT] = 0.0
+			velocity = Vector2(100, 0) * player.direction
+			attack_component.start_attack(10)
+			attack_component.set_hitbox_template("Buzzsaw")
+			attack_component.global_position = player.global_position 
+			player.inputs[PlayerCharacter.Inputs.XINPUT] = player.direction
+			buzzsaw_attack_sfx()
+			player.animation_player.speed_scale = 2
+			player.move_speed = 2 * 60
+			await get_tree().create_timer(0.4, false).timeout
+			if player.inputs[PlayerCharacter.Inputs.START] == false: 
+				attack_component.stop_attack()
+				player.animation_player.speed_scale = 0.5
+				player.move_speed = 1 * 60
+				player.has_input = had_input
+				player.has_input_GIGAN = had_input_GIGAN
+				player.animation_player.play("RESET")
+				player.state.current = player.move_state
+			if player.inputs[PlayerCharacter.Inputs.START] == true:
+				print("WHAT THE HELL")
+				player.power.use(amount)
+				if player.power.value < amount:
+					return
+				player.animation_player.play("BuzzSaw3")
+				player.has_input = false
+				player.has_input_GIGAN = true
+				player.inputs[PlayerCharacter.Inputs.XINPUT] = 0.0
+				velocity = Vector2(100, 0) * player.direction
+				attack_component.start_attack(10)
+				attack_component.set_hitbox_template("Buzzsaw")
+				attack_component.global_position = player.global_position 
+				player.inputs[PlayerCharacter.Inputs.XINPUT] = player.direction
+				buzzsaw_attack_sfx()
+				player.animation_player.speed_scale = 2
+				player.move_speed = 2 * 60
+				await get_tree().create_timer(0.4, false).timeout
+				if not is_still_attacking(): return
 func create_heat_beam() -> void:
 	const HEAT_BEAM_COUNT := 12
 	var heat_beams: Array[AnimatedSprite2D] = []
@@ -395,6 +487,11 @@ func wing_attack_sfx(times: int) -> void:
 	for i in times:
 		player.play_sfx("Wing")
 		await get_tree().create_timer(0.25, false).timeout
+		
+func buzzsaw_attack_sfx() -> void:
+	for i in range(8):
+		player.play_sfx("Step")
+		await get_tree().create_timer(0.1, false).timeout
 
 func _on_animation_finished(anim_name: String) -> void:
 	if not is_still_attacking(): return
@@ -419,3 +516,6 @@ func _on_animation_finished(anim_name: String) -> void:
 		"HedriumRayFly":
 			player.animation_player.play("Idle")
 			player.state.current = PlayerCharacter.State.FLY
+		"Laser":
+			player.animation_player.play("Idle")
+			player.state.current = PlayerCharacter.State.WALK

@@ -105,6 +105,7 @@ func _ready() -> void:
 		attack.enemy = true
 			
 	has_input = is_player
+	has_input_GIGAN = is_player
 	
 	inputs.resize(Inputs.size())
 	inputs_pressed.resize(Inputs.size())
@@ -180,6 +181,7 @@ enum Inputs {
 }
 
 var has_input := true
+var has_input_GIGAN := false
 var inputs := []
 var inputs_pressed := []
 const INPUT_ACTIONS := [["Left", "Right"], ["Up", "Down"], "B", "A", "Start", "Select"]
@@ -197,6 +199,16 @@ func process_input() -> void:
 		
 		inputs_pressed[Inputs.XINPUT] = int(Input.is_action_just_pressed("Right")) \
 			- int(Input.is_action_just_pressed("Left"))
+		inputs_pressed[Inputs.YINPUT] = int(Input.is_action_just_pressed("Down")) \
+			- int(Input.is_action_just_pressed("Up"))
+			
+		for i in range(Inputs.B, Inputs.size()):
+			inputs[i] = Input.is_action_pressed(INPUT_ACTIONS[i])
+			inputs_pressed[i] = Input.is_action_just_pressed(INPUT_ACTIONS[i])
+			
+	if has_input_GIGAN:
+		inputs[Inputs.YINPUT] = Input.get_axis(INPUT_ACTIONS[1][0], INPUT_ACTIONS[1][1])
+		
 		inputs_pressed[Inputs.YINPUT] = int(Input.is_action_just_pressed("Down")) \
 			- int(Input.is_action_just_pressed("Up"))
 			
@@ -282,7 +294,7 @@ func is_hurtable() -> bool:
 
 func _on_health_damaged(_amount: float, hurt_time: float) -> void:
 	var attack_state := $StateMachine/Attack
-	if state.current == State.ATTACK and attack_state.current_attack in [Attack.HEAT_BEAM, Attack.LASERBEAM]:
+	if state.current == State.ATTACK and attack_state.current_attack in [Attack.HEAT_BEAM, Attack.WING_ATTACK, Attack.LASERBEAM, Attack.BUZZSAW]:
 		hurt_time = 0
 	if animation_player.current_animation in ["TransformationIn", "TransformationOut"]:
 		hurt_time = 0

@@ -17,6 +17,7 @@ func state_init() -> void:
 		walk_frames = player.body.sprite_frames.get_frame_count("Walk")
 	walk_frame_speed = player.skin.walk_frame_speed
 	jump_speed = player.skin.jump_speed
+	
 
 func _process(delta: float) -> void:
 	move(delta)

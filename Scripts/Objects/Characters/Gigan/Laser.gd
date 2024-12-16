@@ -27,12 +27,12 @@ func setup(init_type: Type, player: PlayerCharacter) -> void:
 			animation = "LASER"
 			animation_player.play("LASER")
 			timer.start(0.4)
-			velocity = Vector2(5 * player.direction * 60, 0)
+			velocity = Vector2(4 * player.direction * 60, 0)
 		Type.LASER_DOWN:
 			animation = "LASER_DOWN"
 			animation_player.play("LASER_DOWN")
 			timer.start(0.4)
-			velocity = Vector2(6, 6) * 0.3 * 60 * player.direction
+			velocity = Vector2(6 * player.direction, 6) * 0.4 * 60
 	attack_component.attacked.connect(func(_body: Node2D, _amount: float) -> void:
 		queue_free()
 		)

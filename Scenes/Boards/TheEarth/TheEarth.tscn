@@ -111,7 +111,7 @@ region_rect = Rect2(0, 96, 48, 48)
 piece_character = 1
 
 [node name="Hedorah" parent="Board/Board Icons/Board Pieces" index="5" instance=ExtResource("7_5qhq5")]
-position = Vector2(48, 40)
+position = Vector2(12, 91)
 region_rect = Rect2(0, 144, 48, 48)
 piece_character = 2
 

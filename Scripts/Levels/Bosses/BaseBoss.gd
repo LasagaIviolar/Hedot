@@ -26,6 +26,9 @@ func _ready() -> void:
 		
 	if data.boss_piece:
 		boss.load_state(data.boss_piece.character_data)
+		
+	if not Global.is_widescreen():
+		$CanvasLayer.queue_free()
 
 func _process(delta: float) -> void:
 	super._process(delta)

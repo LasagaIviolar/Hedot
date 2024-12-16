@@ -112,3 +112,6 @@ region_rect = Rect2(339, 142, 42, 64)
 
 [node name="Jet2" parent="LevelLayout" index="15" instance=ExtResource("4_gd8cj")]
 position = Vector2(664, 184)
+
+[node name="Player" parent="." index="4"]
+character = 0

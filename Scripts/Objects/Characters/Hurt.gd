@@ -23,24 +23,27 @@ func state_entered() -> void:
 	
 	move_state = parent.state.states_list[parent.move_state]
 	
-	if parent.character != PlayerCharacter.Type.HEDORAH:
+	if player.character != PlayerCharacter.Type.HEDORAH:
 		if player.animation_player.has_animation("Hurt"):
 			player.animation_player.play("RESET")
 			await get_tree().process_frame
 			player.animation_player.play("Hurt")
-	if parent.character == PlayerCharacter.Type.HEDORAH:
-		flash_player.play("Hurt")
-		await flash_player.animation_finished
-		player.animation_player.play("RESET")
-		if parent.move_state == PlayerCharacter.State.FLY:
+	if player.character == PlayerCharacter.Type.HEDORAH:
+		if player.move_state == PlayerCharacter.State.FLY:
+			player.animation_player.play("Hurt")
+			await player.animation_player.animation_finished
+			player.animation_player.play("Idle")
+			player.state.current = player.move_state
+			player.move_state = PlayerCharacter.State.FLY
+		else:
 			flash_player.play("Hurt")
-			parent.animation_player.play("Idle")
-			parent.state.current = parent.move_state
-			parent.move_state = PlayerCharacter.State.FLY
-	if parent.character == PlayerCharacter.Type.GIGAN:
-		flash_player.play("Hurt") 
-		await player.animation_player.animation_finished
-		parent.state.current = parent.move_state
+			await flash_player.animation_finished
+			player.animation_player.play("RESET")
+	if player.character == PlayerCharacter.Type.GIGAN:
+		player.animation_player.play("RESET")
+		await get_tree().process_frame
+		player.animation_player.play("Hurt")
+		flash_player.play("Hurt")
 
 func _on_timeout() -> void:
 	# Might be called after the character died
