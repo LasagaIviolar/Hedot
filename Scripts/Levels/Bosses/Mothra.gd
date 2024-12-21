@@ -37,7 +37,7 @@ func boss_ai() -> void:
 		attack_time = 0
 		boss.simulate_input_press(PlayerCharacter.Inputs.START)
 		
-	if simple_attack_time > 100:
+	if simple_attack_time > 80 and boss.power.value > 1.5 * 8:
 		simple_attack_time = 0
 		spam_bullets()
 	
@@ -63,3 +63,5 @@ func spam_bullets() -> void:
 	boss.inputs_pressed[boss.Inputs.A] = true
 	await get_tree().create_timer(1, false).timeout
 	boss.inputs_pressed[boss.Inputs.A] = false
+	await get_tree().create_timer(1, false).timeout
+	boss.use_attack(PlayerCharacter.Attack.POISON_BEAM)

@@ -38,11 +38,11 @@ func boss_ai() -> void:
 		simple_attack_time = 0
 		transform()
 		
-	if attack_time < 100 and boss.power.value > 5 * 8 and boss.state.current == boss.State.WALK:
+	if attack_time < 100 and boss.power.value > 3 * 8 and boss.state.current == boss.State.WALK:
 		attack_time = 0
 		boss.simulate_input_press(PlayerCharacter.Inputs.B)
 		
-	if simple_attack_time > 90 and boss.power.value > 6 * 8 and boss.state.current == boss.State.WALK:
+	if simple_attack_time > 60 and boss.power.value > 6 * 8 and boss.state.current == boss.State.WALK:
 		simple_attack_time = 0
 		boss.use_attack(PlayerCharacter.Attack.LASERBEAM)
 		
@@ -54,7 +54,7 @@ func boss_ai() -> void:
 		simple_attack_time = 0
 		spam_bullets()
 		
-	if attack_time > 150 and boss.state.current == boss.State.FLY:
+	if attack_time > 90 and boss.state.current == boss.State.FLY:
 		attack_time = 0
 		boss.simulate_input_press(PlayerCharacter.Inputs.B)
 	

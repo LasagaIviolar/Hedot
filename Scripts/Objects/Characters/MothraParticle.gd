@@ -3,6 +3,10 @@ extends AnimatedSprite2D
 enum Type {
 	EYE_BEAM,
 	WING,
+	POISON_BEAM,
+	POISON_BEAM1,
+	POISON_BEAM2,
+	POISON_BEAM3,
 }
 
 @onready var timer := $Timer
@@ -36,6 +40,41 @@ func setup(init_type: Type, player: PlayerCharacter) -> void:
 			velocity = Vector2(randi_range(2, 10) * 0.1 * 60 * player.direction,
 							randi_range(6, 9) * 0.1 * 60)
 							
+		Type.POISON_BEAM:
+			# Mind you that this refers to the "animation" property
+			# of AnimatedSprite2D (the class that Mothra particles extend)
+			# and not the animation of the AnimationPlayer
+			animation = "PoisonBeam"
+			animation_player.play("PoisonBeam")
+			
+			timer.start(0.45)
+			timer.timeout.connect(func() -> void: queue_free())
+			velocity = Vector2(4 * player.direction * 60, 0)
+			
+		Type.POISON_BEAM1:
+			animation = "PoisonBeam"
+			animation_player.play("PoisonBeam_2")
+			
+			timer.start(0.45)
+			timer.timeout.connect(func() -> void: queue_free())
+			velocity = Vector2(4 * player.direction * 60, 0)
+			
+		Type.POISON_BEAM2:
+			animation = "PoisonBeam"
+			animation_player.play("PoisonBeam_3")
+			
+			timer.start(0.45)
+			timer.timeout.connect(func() -> void: queue_free())
+			velocity = Vector2(4 * player.direction * 60, 0)
+			
+		Type.POISON_BEAM3:
+			animation = "PoisonBeam"
+			animation_player.play("PoisonBeam_4")
+			
+			timer.start(0.45)
+			timer.timeout.connect(func() -> void: queue_free())
+			velocity = Vector2(4 * player.direction * 60, 0)
+			
 	attack_component.attacked.connect(func(_body: Node2D, _amount: float) -> void:
 		queue_free()
 		)

@@ -36,3 +36,12 @@ func _on_attack_component_attacked(_body: Node2D, _amount: float) -> void:
 	destroy_sfx.reparent(get_parent())
 	destroy_sfx.finished.connect(func() -> void: destroy_sfx.queue_free())
 	queue_free()
+	
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	var explosion := EXPLOSION.instantiate()
+	explosion.global_position = global_position
+	get_parent().add_child(explosion)
+	destroy_sfx.play()
+	destroy_sfx.reparent(get_parent())
+	destroy_sfx.finished.connect(func() -> void: destroy_sfx.queue_free())
+	queue_free()

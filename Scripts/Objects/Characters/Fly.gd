@@ -20,10 +20,16 @@ func _physics_process(delta: float) -> void:
 func _process(_delta: float) -> void:
 	if player.character == PlayerCharacter.Type.MOTHRA:
 		if (player.inputs_pressed[player.Inputs.A]
-			or player.inputs_pressed[player.Inputs.B]) \
+			or player.inputs_pressed[player.Inputs.A]) \
 			and attack_timer.is_stopped():
 				player.use_attack(PlayerCharacter.Attack.EYE_BEAM)
 				attack_timer.start(0.2)
+		if (player.inputs_pressed[player.Inputs.B]
+			or player.inputs_pressed[player.Inputs.B]) \
+			and attack_timer.is_stopped()\
+			and player.power.value >= 1.5 * 8:
+				player.use_attack(PlayerCharacter.Attack.POISON_BEAM)
+				attack_timer.start(0.5)
 		
 		if player.inputs_pressed[player.Inputs.START]:
 			player.use_attack(PlayerCharacter.Attack.WING_ATTACK)

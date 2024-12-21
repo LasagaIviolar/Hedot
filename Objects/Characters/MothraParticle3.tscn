@@ -1,45 +1,45 @@
-[gd_scene load_steps=25 format=3 uid="uid://wk0ngrdkwnbv"]
+[gd_scene load_steps=25 format=3 uid="uid://o0ghsjbvsolp"]
 
-[ext_resource type="Shader" path="res://Shaders/PaletteSwapOffset.gdshader" id="1_1t45u"]
-[ext_resource type="Texture2D" uid="uid://bdxxiw6dr1ay4" path="res://Sprites/Characters/Mothra/eyebeam.png" id="1_11dhb"]
-[ext_resource type="Texture2D" uid="uid://di5yqmheu2g18" path="res://Sprites/Characters/Mothra/particles.png" id="1_ok31u"]
-[ext_resource type="Texture2D" uid="uid://bf3s75s5heyir" path="res://Sprites/Characters/Mothra/Mothpallete.png" id="2_433uk"]
-[ext_resource type="Script" path="res://Scripts/Objects/Characters/MothraParticle.gd" id="2_v1kq8"]
-[ext_resource type="PackedScene" uid="uid://bi7wq6b7la5ki" path="res://Objects/AttackComponent.tscn" id="3_f4212"]
-[ext_resource type="Texture2D" uid="uid://dtl0gjj2dlhx1" path="res://Sprites/Characters/Mothra/poisonbeam.png" id="4_6tslu"]
+[ext_resource type="Shader" path="res://Shaders/PaletteSwapOffset.gdshader" id="1_2vibw"]
+[ext_resource type="Texture2D" uid="uid://bf3s75s5heyir" path="res://Sprites/Characters/Mothra/Mothpallete.png" id="2_gjcnj"]
+[ext_resource type="Texture2D" uid="uid://bdxxiw6dr1ay4" path="res://Sprites/Characters/Mothra/eyebeam.png" id="3_kyoq2"]
+[ext_resource type="Texture2D" uid="uid://dtl0gjj2dlhx1" path="res://Sprites/Characters/Mothra/poisonbeam.png" id="4_pse3u"]
+[ext_resource type="Texture2D" uid="uid://di5yqmheu2g18" path="res://Sprites/Characters/Mothra/particles.png" id="5_x8xcr"]
+[ext_resource type="Script" path="res://Scripts/Objects/Characters/MothraParticle.gd" id="6_pr56u"]
+[ext_resource type="PackedScene" uid="uid://bi7wq6b7la5ki" path="res://Objects/AttackComponent.tscn" id="7_e57df"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qiyjs"]
-shader = ExtResource("1_1t45u")
+shader = ExtResource("1_2vibw")
 shader_parameter/use_palette_alpha = false
 shader_parameter/offset = 0.0
-shader_parameter/palette = ExtResource("2_433uk")
+shader_parameter/palette = ExtResource("2_gjcnj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8etuv"]
-atlas = ExtResource("1_11dhb")
+atlas = ExtResource("3_kyoq2")
 region = Rect2(0, 0, 7, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i27ki"]
-atlas = ExtResource("1_11dhb")
+atlas = ExtResource("3_kyoq2")
 region = Rect2(7, 0, 7, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwvdl"]
-atlas = ExtResource("1_11dhb")
+atlas = ExtResource("3_kyoq2")
 region = Rect2(14, 0, 7, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_naaic"]
-atlas = ExtResource("4_6tslu")
+atlas = ExtResource("4_pse3u")
 region = Rect2(0, 0, 6, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wlv7g"]
-atlas = ExtResource("4_6tslu")
+atlas = ExtResource("4_pse3u")
 region = Rect2(6, 0, 6, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6wclb"]
-atlas = ExtResource("4_6tslu")
+atlas = ExtResource("4_pse3u")
 region = Rect2(12, 0, 6, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_akx7u"]
-atlas = ExtResource("1_ok31u")
+atlas = ExtResource("5_x8xcr")
 region = Rect2(0, 24, 48, 13)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8dfex"]
@@ -569,7 +569,7 @@ position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_8dfex")
 animation = &"EyeBeam"
 frame = 1
-script = ExtResource("2_v1kq8")
+script = ExtResource("6_pr56u")
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -579,5 +579,5 @@ libraries = {
 }
 speed_scale = 0.75
 
-[node name="AttackComponent" parent="." instance=ExtResource("3_f4212")]
+[node name="AttackComponent" parent="." instance=ExtResource("7_e57df")]
 default_attack_amount = 2.0

@@ -32,6 +32,7 @@ enum Attack {
 	
 	# Mothra attacks
 	EYE_BEAM,
+	POISON_BEAM,
 	WING_ATTACK,
 	
 	# Hedorah attacks

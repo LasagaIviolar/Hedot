@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e25ojp2des5"
-path="res://.godot/imported/spEarth_BossFrame_Frame.png-598239561c52adb96b1da970c1013c75.ctex"
+uid="uid://dtl0gjj2dlhx1"
+path="res://.godot/imported/poisonbeam.png-14eba9f11b40d1a72faf2affa846bc31.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Characters/spEarth_BossFrame_Frame.png"
-dest_files=["res://.godot/imported/spEarth_BossFrame_Frame.png-598239561c52adb96b1da970c1013c75.ctex"]
+source_file="res://Sprites/Characters/Mothra/poisonbeam.png"
+dest_files=["res://.godot/imported/poisonbeam.png-14eba9f11b40d1a72faf2affa846bc31.ctex"]
 
 [params]
 

@@ -5,6 +5,9 @@ const HedorahRay := preload("res://Objects/Characters/HedorahRay.tscn")
 const HedorahSludge := preload("res://Objects/Characters/HedorahSludge.tscn")
 const BlobBomb := preload("res://Objects/Characters/BlobBomb.tscn")
 const MothraParticle := preload("res://Objects/Characters/MothraParticle.tscn")
+const MothraParticle1 := preload("res://Objects/Characters/MothraParticle1.tscn")
+const MothraParticle2 := preload("res://Objects/Characters/MothraParticle2.tscn")
+const MothraParticle3 := preload("res://Objects/Characters/MothraParticle3.tscn")
 const GodzillaHeatBeam := preload("res://Objects/Characters/GodzillaHeatBeam.tscn")
 
 var move_state: Node
@@ -129,6 +132,52 @@ func use(type: PlayerCharacter.Attack) -> void:
 			
 			particle.setup(particle.Type.EYE_BEAM, player)
 			particle.global_position = (
+				player.global_position + Vector2(20 * player.direction, -2)
+			)
+			
+			player.state.current = player.move_state
+			player.play_sfx("Step")
+			attack_component.start_attack(2)
+			await player.animation_player.animation_finished
+			attack_component.stop_attack()
+			
+		PlayerCharacter.Attack.POISON_BEAM:
+			var amount := 1.5 * 8
+			if player.power.value < amount:
+				return
+			player.power.use(amount)
+			
+			flash_player.play("PoisonBeam")
+			
+			var particle := MothraParticle.instantiate()
+			Global.get_current_scene().add_child(particle)
+				
+			particle.setup(particle.Type.POISON_BEAM, player)
+			particle.global_position = (
+				player.global_position + Vector2(20 * player.direction, -2)
+			)
+			
+			var particle1 := MothraParticle1.instantiate()
+			Global.get_current_scene().add_child(particle1)
+			
+			particle1.setup(particle1.Type.POISON_BEAM2, player)
+			particle1.global_position = (
+				player.global_position + Vector2(20 * player.direction, -2)
+			)
+			
+			var particle2 := MothraParticle2.instantiate()
+			Global.get_current_scene().add_child(particle2)
+			
+			particle2.setup(particle2.Type.POISON_BEAM3, player)
+			particle2.global_position = (
+				player.global_position + Vector2(20 * player.direction, -2)
+			)
+			
+			
+			var particle3 := MothraParticle3.instantiate()
+			Global.get_current_scene().add_child(particle3)
+			particle3.setup(particle3.Type.POISON_BEAM1, player)
+			particle3.global_position = (
 				player.global_position + Vector2(20 * player.direction, -2)
 			)
 			

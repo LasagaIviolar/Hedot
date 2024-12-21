@@ -87,7 +87,7 @@ region_rect = Rect2(0, 144, 48, 48)
 piece_character = 2
 piece_type = 1
 boss_scene = ExtResource("8_s76aa")
-level = 6
+level = 5
 
 [node name="Godzilla4" parent="Board/Board Icons/Board Pieces" index="2" instance=ExtResource("7_5qhq5")]
 position = Vector2(172, 136)
